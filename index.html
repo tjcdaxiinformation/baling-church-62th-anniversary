@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>真耶穌教會上巴陵教會 成立62年修繕感恩特別聚會 電子紀念專刊與資料上傳門戶</title>
+    <title>真耶穌教會上巴陵教會 上巴陵教會修繕感恩特別聚會 電子紀念專刊與資料上傳門戶</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- FontAwesome Icons -->
@@ -58,7 +58,7 @@
     <div class="bg-church-navy text-white text-xs py-2 px-4 shadow-inner border-b border-amber-500/30">
         <div class="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-2">
             <div class="flex items-center gap-2">
-                <span class="bg-amber-500 text-church-navy font-bold px-2 py-0.5 rounded text-[10px]">62週年特會</span>
+                <span class="bg-amber-500 text-church-navy font-bold px-2 py-0.5 rounded text-[10px]">修繕感恩特會</span>
                 <span class="font-medium text-amber-200">請選擇存取入口：</span>
             </div>
             <div class="flex items-center space-x-2">
@@ -66,7 +66,7 @@
                     <i class="fa-solid fa-users mr-1"></i> 弟兄姊妹報名與專刊入口
                 </button>
                 <button id="switch-staff-btn" onclick="showPortalTab('staff')" class="portal-tab-btn px-3 py-1 rounded-full font-bold bg-white/10 hover:bg-white/20 text-white transition">
-                    <i class="fa-solid fa-cloud-arrow-up mr-1"></i> 工作人員專刊上傳專區
+                    <i class="fa-solid fa-cloud-arrow-up mr-1"></i> 工作小組專刊上傳專區
                 </button>
             </div>
         </div>
@@ -88,11 +88,10 @@
                 <!-- Navigation Links for Public View -->
                 <nav id="public-nav" class="hidden md:flex space-x-6 lg:space-x-8 font-medium text-sm text-gray-700">
                     <a href="#home" class="hover:text-amber-600 transition-colors py-2 border-b-2 border-transparent hover:border-amber-500">首頁</a>
-                    <a href="#special-issue" class="hover:text-amber-600 transition-colors py-2 border-b-2 border-transparent hover:border-amber-500">紀念專刊</a>
-                    <a href="#history" class="hover:text-amber-600 transition-colors py-2 border-b-2 border-transparent hover:border-amber-500">62年建堂沿革</a>
-                    <a href="#program" class="hover:text-amber-600 transition-colors py-2 border-b-2 border-transparent hover:border-amber-500">聚會流程</a>
-                    <a href="#invitation" class="hover:text-amber-600 transition-colors py-2 border-b-2 border-transparent hover:border-amber-500">電子邀請函</a>
-                    <a href="#attendees" class="hover:text-amber-600 transition-colors py-2 border-b-2 border-transparent hover:border-amber-500">嘉賓與統計</a>
+                    <a href="#special-issue" class="hover:text-amber-600 transition-colors py-2 border-b-2 border-transparent hover:border-amber-500">專刊目錄</a>
+                    <a href="#history" class="hover:text-amber-600 transition-colors py-2 border-b-2 border-transparent hover:border-amber-500">沿革與歷任傳道</a>
+                    <a href="#rsvp" class="hover:text-amber-600 transition-colors py-2 border-b-2 border-transparent hover:border-amber-500">聚會報名</a>
+                    <a href="#attendees" class="hover:text-amber-600 transition-colors py-2 border-b-2 border-transparent hover:border-amber-500">嘉賓名冊</a>
                 </nav>
 
                 <!-- Action Button -->
@@ -107,7 +106,7 @@
 
                 <!-- Mobile menu button -->
                 <div class="md:hidden flex items-center">
-                    <button id="mobile-menu-btn" class="text-gray-700 hover:text-amber-600 p-2 rounded-md focus:outline-none">
+                    <button id="mobile-menu-btn" onclick="toggleMobileMenu()" class="text-gray-700 hover:text-amber-600 p-2 rounded-md focus:outline-none">
                         <i class="fa-solid fa-bars text-2xl"></i>
                     </button>
                 </div>
@@ -131,7 +130,7 @@
                 </div>
 
                 <h1 class="text-3xl sm:text-5xl lg:text-6xl font-black font-serif tracking-tight text-white mb-4">
-                    成立62年修繕感恩特別聚會
+                    上巴陵教會修繕感恩特別聚會
                 </h1>
                 
                 <p class="text-amber-200 text-base sm:text-lg font-serif max-w-2xl mx-auto mb-8">
@@ -192,7 +191,7 @@
                         <i class="fa-solid fa-pen-to-square"></i> 線上點選報名
                     </a>
                     <button onclick="showPortalTab('staff')" class="bg-white/10 hover:bg-white/20 text-white font-semibold border border-white/30 px-6 py-3.5 rounded-full text-base backdrop-blur transition flex items-center gap-2">
-                        <i class="fa-solid fa-cloud-arrow-up text-amber-300"></i> 切換至工作人員上傳專區
+                        <i class="fa-solid fa-cloud-arrow-up text-amber-300"></i> 切換至工作小組上傳專區
                     </button>
                 </div>
             </div>
@@ -224,103 +223,134 @@
             </div>
         </section>
 
-        <!-- Section 1: 電子紀念專刊 -->
+        <!-- Section 1: 電子紀念專刊目錄 (4大核心主題) -->
         <section id="special-issue" class="py-16 bg-pattern">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="text-center max-w-3xl mx-auto mb-12">
-                    <span class="text-amber-700 font-bold text-xs uppercase tracking-widest bg-amber-100 px-3 py-1 rounded-full">COMMEMORATIVE ISSUE</span>
-                    <h2 class="text-3xl font-bold font-serif text-church-navy mt-3">電子紀念專刊主頁</h2>
+                    <span class="text-amber-700 font-bold text-xs uppercase tracking-widest bg-amber-100 px-3 py-1 rounded-full">SPECIAL ISSUE DIRECTORY</span>
+                    <h2 class="text-3xl font-bold font-serif text-church-navy mt-3">上巴陵教會修繕感恩特別聚會 電子紀念專刊目錄</h2>
                     <p class="text-gray-600 text-sm mt-2">
-                        回顧主耶穌在上巴陵教會62年來的豐盛恩典，從草創時期到木造會堂，再到如今修繕一新。
+                        點選目錄主題，齊來回顧主耶穌在上巴陵教會 62 年來的施恩帶領與修繕建堂之美。
                     </p>
                 </div>
 
-                <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                    <!-- Card 1 -->
-                    <div class="bg-white rounded-2xl shadow-md border border-gray-100 overflow-hidden flex flex-col">
+                <!-- 4 Major Directory Grid Cards -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    
+                    <!-- Directory Item 1: 祝福詞 -->
+                    <div class="bg-white rounded-2xl shadow-md border border-gray-100 overflow-hidden flex flex-col hover:shadow-xl transition group">
                         <div class="bg-church-navy text-white p-6 relative">
-                            <span class="text-xs text-amber-300 font-semibold block mb-1">【感恩獻詞】</span>
-                            <h3 class="text-xl font-bold font-serif">建堂62週年修繕感恩特刊辭</h3>
+                            <span class="text-3xl font-black font-serif text-amber-400 opacity-40 absolute right-4 top-3">01</span>
+                            <span class="text-xs text-amber-300 font-semibold block mb-1">【專刊目錄 1】</span>
+                            <h3 class="text-xl font-bold font-serif group-hover:text-amber-300 transition"><i class="fa-solid fa-scroll mr-1.5"></i> 祝福詞</h3>
                         </div>
-                        <div class="p-6 flex-1 flex flex-col justify-between">
+                        <div class="p-6 flex-1 flex flex-col justify-between bg-gradient-to-b from-white to-amber-50/20">
                             <p class="text-gray-600 text-sm leading-relaxed mb-6">
-                                哈利路亞！讚美主耶穌聖名。上巴陵教會自創設以來已歷62載。位處高山之上，承蒙天父扶持，歷代同工與弟兄姊妹辛勤耕耘，聖工蒸蒸日上。
+                                匯集總會長執、區負責、同工獻詞與國內外各姊妹教會之感恩賀詞，同心同賀聖殿修繕竣工。
                             </p>
-                            <div class="pt-4 border-t border-gray-100 text-xs text-gray-500 flex justify-between">
-                                <span class="font-bold text-church-navy">上巴陵教會 負責會</span>
-                                <span>2026.11</span>
+                            <div class="pt-4 border-t border-gray-100 flex items-center justify-between text-xs font-bold text-church-navy">
+                                <span>負責單位：祝福詞採編小組</span>
+                                <i class="fa-solid fa-arrow-right text-amber-600"></i>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Card 2 -->
-                    <div class="bg-white rounded-2xl shadow-md border border-gray-100 overflow-hidden flex flex-col">
-                        <div class="bg-gradient-to-r from-amber-700 to-amber-900 text-white p-6">
-                            <span class="text-xs text-amber-200 font-semibold block mb-1">【聖殿蛻變】</span>
-                            <h3 class="text-xl font-bold font-serif">昔日與今朝：會堂修繕寫真</h3>
+                    <!-- Directory Item 2: 沿革-歷任傳道 -->
+                    <div class="bg-white rounded-2xl shadow-md border border-gray-100 overflow-hidden flex flex-col hover:shadow-xl transition group">
+                        <div class="bg-gradient-to-r from-amber-700 to-amber-900 text-white p-6 relative">
+                            <span class="text-3xl font-black font-serif text-amber-200 opacity-40 absolute right-4 top-3">02</span>
+                            <span class="text-xs text-amber-200 font-semibold block mb-1">【專刊目錄 2】</span>
+                            <h3 class="text-xl font-bold font-serif group-hover:text-amber-300 transition"><i class="fa-solid fa-timeline mr-1.5"></i> 沿革-歷任傳道</h3>
                         </div>
-                        <div class="p-6 flex-1 flex flex-col justify-between space-y-4">
-                            <div class="space-y-3">
-                                <div class="relative rounded-xl overflow-hidden shadow">
-                                    <img src="./%E4%B8%8A%E5%B7%B4%E9%99%B5%E7%AC%AC%E4%BA%8C%E9%96%93%E6%95%99%E6%9C%83.jpg" alt="第二間藍色會堂" class="w-full h-36 object-cover" onerror="handleImgError(this, '上巴陵第二間教會.jpg')">
-                                    <div class="absolute bottom-0 inset-x-0 bg-black/60 text-white text-[11px] p-1.5 text-center">
-                                        歷史記憶：第二間藍色木造會堂
-                                    </div>
-                                </div>
-                                <div class="relative rounded-xl overflow-hidden shadow">
-                                    <img src="./%E6%9C%80%E6%96%B0%E6%95%99%E6%9C%83%E5%A4%96%E8%A7%80.jpg" alt="修繕竣工現況" class="w-full h-36 object-cover" onerror="handleImgError(this, '最新教會外觀.jpg')">
-                                    <div class="absolute bottom-0 inset-x-0 bg-amber-900/80 text-amber-200 text-[11px] p-1.5 text-center">
-                                        榮耀現況：2026年最新修繕竣工外觀
-                                    </div>
-                                </div>
+                        <div class="p-6 flex-1 flex flex-col justify-between bg-gradient-to-b from-white to-amber-50/20">
+                            <p class="text-gray-600 text-sm leading-relaxed mb-6">
+                                記錄上巴陵教會創設62年歷史腳蹤，以及歷任駐牧傳道、巡迴同工辛勤耕耘的屬靈真道發祥史。
+                            </p>
+                            <div class="pt-4 border-t border-gray-100 flex items-center justify-between text-xs font-bold text-amber-900">
+                                <span>負責單位：沿革與歷任傳道紀錄小組</span>
+                                <i class="fa-solid fa-arrow-right text-amber-600"></i>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Card 3 -->
-                    <div class="bg-white rounded-2xl shadow-md border border-gray-100 overflow-hidden flex flex-col">
-                        <div class="bg-blue-900 text-white p-6">
-                            <span class="text-xs text-blue-200 font-semibold block mb-1">【靈界燈塔】</span>
-                            <h3 class="text-xl font-bold font-serif">教會標誌與屬靈精神</h3>
+                    <!-- Directory Item 3: 見證集 -->
+                    <div class="bg-white rounded-2xl shadow-md border border-gray-100 overflow-hidden flex flex-col hover:shadow-xl transition group">
+                        <div class="bg-emerald-900 text-white p-6 relative">
+                            <span class="text-3xl font-black font-serif text-emerald-300 opacity-40 absolute right-4 top-3">03</span>
+                            <span class="text-xs text-emerald-300 font-semibold block mb-1">【專刊目錄 3】</span>
+                            <h3 class="text-xl font-bold font-serif group-hover:text-emerald-300 transition"><i class="fa-solid fa-book-bible mr-1.5"></i> 見證集</h3>
                         </div>
-                        <div class="p-6 flex-1 flex flex-col items-center text-center justify-between">
-                            <img src="./%E4%B8%8A%E5%B7%B4%E9%99%B5%E6%95%99%E6%9C%83logo.jpg" alt="Logo" class="h-28 object-contain my-2" onerror="handleImgError(this, '上巴陵教會logo.jpg')">
-                            <p class="text-xs text-gray-600 leading-relaxed mb-4">
-                                聖靈如鴿降臨，帶著基督十字架榮耀，在上巴陵高山作明燈、廣傳真道。
+                        <div class="p-6 flex-1 flex flex-col justify-between bg-gradient-to-b from-white to-emerald-50/20">
+                            <p class="text-gray-600 text-sm leading-relaxed mb-6">
+                                收錄弟兄姊妹蒙恩見證、病痛醫治、修繕籌備過程中的神蹟顯明與獻心獻力感言故事。
                             </p>
+                            <div class="pt-4 border-t border-gray-100 flex items-center justify-between text-xs font-bold text-emerald-900">
+                                <span>負責單位：見證採編小組</span>
+                                <i class="fa-solid fa-arrow-right text-emerald-600"></i>
+                            </div>
                         </div>
                     </div>
+
+                    <!-- Directory Item 4: 照片 -->
+                    <div class="bg-white rounded-2xl shadow-md border border-gray-100 overflow-hidden flex flex-col hover:shadow-xl transition group">
+                        <div class="bg-blue-900 text-white p-6 relative">
+                            <span class="text-3xl font-black font-serif text-sky-300 opacity-40 absolute right-4 top-3">04</span>
+                            <span class="text-xs text-sky-200 font-semibold block mb-1">【專刊目錄 4】</span>
+                            <h3 class="text-xl font-bold font-serif group-hover:text-sky-300 transition"><i class="fa-solid fa-images mr-1.5"></i> 照片</h3>
+                        </div>
+                        <div class="p-6 flex-1 flex flex-col justify-between bg-gradient-to-b from-white to-blue-50/20">
+                            <p class="text-gray-600 text-sm leading-relaxed mb-6">
+                                早期斜頂藍色木造會堂寫真、歷代聖工舊照，以及 2026 年最新修繕竣工完工的全景紀錄。
+                            </p>
+                            <div class="pt-4 border-t border-gray-100 flex items-center justify-between text-xs font-bold text-blue-900">
+                                <span>負責單位：照片與美編小組</span>
+                                <i class="fa-solid fa-arrow-right text-blue-600"></i>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </section>
 
-        <!-- Section 2: 歷史沿革 -->
+        <!-- Section 2: 沿革與歷任傳道詳細歷史 -->
         <section id="history" class="py-16 bg-white">
             <div class="max-w-5xl mx-auto px-4 sm:px-6">
                 <div class="text-center mb-12">
-                    <span class="text-amber-700 font-bold text-xs uppercase tracking-widest bg-amber-100 px-3 py-1 rounded-full">MILESTONES</span>
-                    <h2 class="text-3xl font-bold font-serif text-church-navy mt-3">62年歷史沿革與修繕紀錄</h2>
+                    <span class="text-amber-700 font-bold text-xs uppercase tracking-widest bg-amber-100 px-3 py-1 rounded-full">CHURCH HISTORY & MINISTERS</span>
+                    <h2 class="text-3xl font-bold font-serif text-church-navy mt-3">上巴陵教會62年歷史沿革與歷任傳道腳蹤</h2>
                 </div>
+                
                 <div class="relative border-l-2 border-amber-300 ml-4 md:ml-32 space-y-8">
                     <div class="relative pl-8">
                         <div class="absolute -left-3 top-1 bg-amber-500 text-white rounded-full w-6 h-6 flex items-center justify-center text-xs">1</div>
                         <div class="md:absolute md:-left-32 md:top-0 text-amber-700 font-bold font-serif text-lg">1964 年</div>
                         <div class="bg-gray-50 rounded-xl p-5 border border-gray-200 text-sm text-gray-700">
-                            <strong>【福音萌芽】</strong> 真道傳入上巴陵，同工弟兄姊妹開始家庭聚會，奠定信仰根基。
+                            <strong>【福音萌芽與創立】</strong> 真道傳入拉拉山上巴陵，同工弟兄姊妹開辦家庭聚會，感謝真神建立上巴陵教會屬靈燈塔。
                         </div>
                     </div>
+
                     <div class="relative pl-8">
                         <div class="absolute -left-3 top-1 bg-blue-600 text-white rounded-full w-6 h-6 flex items-center justify-center text-xs">2</div>
-                        <div class="md:absolute md:-left-32 md:top-0 text-amber-700 font-bold font-serif text-lg">昔日會堂</div>
-                        <div class="bg-gray-50 rounded-xl p-5 border border-gray-200 text-sm text-gray-700">
-                            <strong>【藍色木造會堂】</strong> 建造經典斜頂藍色木造會堂，成為山區地標。
+                        <div class="md:absolute md:-left-32 md:top-0 text-amber-700 font-bold font-serif text-lg">歷任傳道</div>
+                        <div class="bg-gray-50 rounded-xl p-5 border border-gray-200 text-sm text-gray-700 space-y-2">
+                            <strong>【巡迴駐牧與聖工推進】</strong> 承蒙總會安排歷任傳道、長執忠心駐牧牧養，高山羊群信心得著堅固，福音廣傳。
                         </div>
                     </div>
+
                     <div class="relative pl-8">
-                        <div class="absolute -left-3 top-1 bg-emerald-600 text-white rounded-full w-6 h-6 flex items-center justify-center text-xs">3</div>
+                        <div class="absolute -left-3 top-1 bg-amber-700 text-white rounded-full w-6 h-6 flex items-center justify-center text-xs">3</div>
+                        <div class="md:absolute md:-left-32 md:top-0 text-amber-700 font-bold font-serif text-lg">經典木造</div>
+                        <div class="bg-gray-50 rounded-xl p-5 border border-gray-200 text-sm text-gray-700">
+                            <strong>【藍色斜頂木造會堂】</strong> 第二間斜頂藍色木造會堂奉獻，成為全台聞名的拉拉山地標性會堂。
+                        </div>
+                    </div>
+
+                    <div class="relative pl-8">
+                        <div class="absolute -left-3 top-1 bg-emerald-600 text-white rounded-full w-6 h-6 flex items-center justify-center text-xs">4</div>
                         <div class="md:absolute md:-left-32 md:top-0 text-amber-700 font-bold font-serif text-lg">2026 年</div>
-                        <div class="bg-amber-50/70 rounded-xl p-5 border border-amber-200 text-sm text-gray-700">
-                            <strong>【修繕竣工】</strong> 全面修繕外牆、禮拜堂內裝與客房設施，煥然一新獻於真神。
+                        <div class="bg-amber-50/80 rounded-xl p-5 border border-amber-200 text-sm text-gray-700">
+                            <strong>【修繕完工獻給真神】</strong> 全面修繕外牆、會堂禮拜堂與客房設施設備，舉開『上巴陵教會修繕感恩特別聚會』。
                         </div>
                     </div>
                 </div>
@@ -331,9 +361,9 @@
         <section id="rsvp" class="py-16 bg-pattern border-t border-gray-200">
             <div class="max-w-3xl mx-auto px-4 sm:px-6">
                 <div class="bg-church-navy rounded-t-3xl p-8 text-white text-center shadow-lg">
-                    <span class="text-amber-300 text-xs font-bold uppercase tracking-wider">ONLINE REGISTRATION</span>
-                    <h2 class="text-3xl font-bold font-serif mt-2">特別聚會出席報名表</h2>
-                    <p class="text-gray-300 text-sm mt-2">請填寫報名資料，方便安排愛宴與住宿</p>
+                    <span class="text-amber-300 text-xs font-bold uppercase tracking-wider">ONLINE RSVP</span>
+                    <h2 class="text-2xl sm:text-3xl font-bold font-serif mt-2">『上巴陵教會修繕感恩特別聚會』出席報名表</h2>
+                    <p class="text-gray-300 text-sm mt-2">請填寫報名資料，方便安排愛宴與住宿人數統計</p>
                 </div>
 
                 <div class="bg-white rounded-b-3xl shadow-2xl border-x border-b border-gray-200 p-6 sm:p-10">
@@ -387,7 +417,7 @@
 
                         <div>
                             <label for="blessing-msg" class="block text-sm font-bold text-gray-700 mb-2">感恩祝福話語 / 禱告留言</label>
-                            <textarea id="blessing-msg" rows="3" placeholder="請填寫對上巴陵教會的祝福..." class="w-full px-4 py-3 rounded-xl border border-gray-300 text-sm"></textarea>
+                            <textarea id="blessing-msg" rows="3" placeholder="請填寫對上巴陵教會修繕感恩特別聚會的祝福..." class="w-full px-4 py-3 rounded-xl border border-gray-300 text-sm"></textarea>
                         </div>
 
                         <button type="submit" id="submit-rsvp-btn" class="w-full bg-amber-600 hover:bg-amber-700 text-white font-black py-4 rounded-xl text-base shadow-lg transition">
@@ -403,7 +433,7 @@
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="text-center max-w-3xl mx-auto mb-10">
                     <span class="text-amber-700 font-bold text-xs uppercase tracking-widest bg-amber-100 px-3 py-1 rounded-full">GUESTBOOK</span>
-                    <h2 class="text-3xl font-bold font-serif text-church-navy mt-3">特別聚會出席紀錄名冊</h2>
+                    <h2 class="text-2xl sm:text-3xl font-bold font-serif text-church-navy mt-3">『上巴陵教會修繕感恩特別聚會』出席紀錄名冊</h2>
                 </div>
 
                 <!-- Admin Toolbar (Visible when Admin Mode is unlocked) -->
@@ -460,16 +490,16 @@
                 <div class="bg-gradient-to-r from-amber-700 to-amber-900 rounded-3xl p-8 shadow-2xl mb-10 border border-amber-500/30 text-center relative overflow-hidden">
                     <div class="absolute -right-6 -bottom-6 text-white/5 text-9xl font-black">EDIT</div>
                     <span class="inline-block bg-amber-400/20 text-amber-300 border border-amber-400/40 text-xs font-bold px-3 py-1 rounded-full mb-3">
-                        <i class="fa-solid fa-folder-open mr-1"></i> 電子專刊編輯組專用入口
+                        <i class="fa-solid fa-folder-open mr-1"></i> 『上巴陵教會修繕感恩特別聚會』專刊籌備工作小組
                     </span>
-                    <h2 class="text-3xl sm:text-4xl font-black font-serif text-white">專刊資料與照片上傳專區</h2>
+                    <h2 class="text-2xl sm:text-4xl font-black font-serif text-white">專刊資料與檔案提交專區</h2>
                     <p class="text-amber-100 text-sm mt-3 max-w-2xl mx-auto leading-relaxed">
-                        歡迎工作人員、採訪組、文字組與美編同工於此專頁上傳電子紀念專刊所需的「歷史老照片、修繕側拍、感言文稿、見證與特刊文章」備查。
+                        歡迎祝福詞採編組、沿革與歷任傳道組、見證小組、攝影美編組等同工在此上傳『上巴陵教會修繕感恩特別聚會』電子專刊文稿與照片。
                     </p>
                     <!-- Google Drive Folder Shortcut Button -->
                     <div class="mt-6 flex justify-center">
                         <a href="https://drive.google.com/drive/folders/1d5QJx3x5aka2cBKGt8cOzYWFalQ5NiRv?usp=sharing" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2.5 bg-amber-400 hover:bg-amber-300 text-church-navy font-bold px-6 py-3 rounded-2xl shadow-xl transition transform hover:-translate-y-0.5 text-sm">
-                            <i class="fa-brands fa-google-drive text-lg text-emerald-800"></i> 開啟 62 週年專刊 Google Drive 共享資料夾
+                            <i class="fa-brands fa-google-drive text-lg text-emerald-800"></i> 開啟 62 週年修繕特會 Google Drive 共享資料夾
                         </a>
                     </div>
                 </div>
@@ -480,50 +510,50 @@
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
                             <div>
                                 <label for="staff-name" class="block text-sm font-bold text-amber-300 mb-2">
-                                    上傳同工姓名 / 職稱 <span class="text-red-400">*</span>
+                                    提交同工姓名 / 負責小組 <span class="text-red-400">*</span>
                                 </label>
-                                <input type="text" id="staff-name" required placeholder="例如：林文字 執事 / 採訪組" class="w-full px-4 py-3 rounded-xl bg-slate-900 border border-slate-600 text-white text-sm focus:ring-2 focus:ring-amber-500 outline-none">
+                                <input type="text" id="staff-name" required placeholder="例如：林文字 執事 / 祝福詞採編組" class="w-full px-4 py-3 rounded-xl bg-slate-900 border border-slate-600 text-white text-sm focus:ring-2 focus:ring-amber-500 outline-none">
                             </div>
                             <div>
                                 <label for="material-category" class="block text-sm font-bold text-amber-300 mb-2">
-                                    資料分類類別 <span class="text-red-400">*</span>
+                                    專刊目錄分類 / 工作小組類別 <span class="text-red-400">*</span>
                                 </label>
                                 <select id="material-category" required class="w-full px-4 py-3 rounded-xl bg-slate-900 border border-slate-600 text-white text-sm focus:ring-2 focus:ring-amber-500 outline-none">
-                                    <option value="教會歷史老照片">📷 歷史老照片（舊會堂/早期聖工）</option>
-                                    <option value="修繕工程記錄照">🔨 2026年修繕工程側拍照片</option>
-                                    <option value="感恩獻詞與文稿">✍️ 長執/同工感恩獻詞文稿</option>
-                                    <option value="蒙恩見證文章">📖 弟兄姊妹蒙恩見證與感言</option>
-                                    <option value="詩班與音影資料">🎵 詩班合照/影片/錄音連結</option>
+                                    <option value="1. 祝福詞 (祝福詞採編小組)">📜 1. 祝福詞 (長執獻詞/各教會賀詞)</option>
+                                    <option value="2. 沿革-歷任傳道 (沿革小組)">📜 2. 沿革-歷任傳道 (建堂沿革/傳道紀錄)</option>
+                                    <option value="3. 見證集 (見證採編小組)">📖 3. 見證集 (弟兄姊妹蒙恩/修繕感言)</option>
+                                    <option value="4. 照片 (攝影美編小組)">📷 4. 照片 (歷史老照片/修繕竣工寫真)</option>
+                                    <option value="影音多媒體組">🎵 影音多媒體 (詩班合照/特會錄音錄影)</option>
                                 </select>
                             </div>
                         </div>
 
                         <div>
                             <label for="material-title" class="block text-sm font-bold text-amber-300 mb-2">
-                                資料 / 相片主題名稱 <span class="text-red-400">*</span>
+                                資料 / 稿件主題名稱 <span class="text-red-400">*</span>
                             </label>
-                            <input type="text" id="material-title" required placeholder="例如：1980年代第二間藍色會堂安息日聚會舊照" class="w-full px-4 py-3 rounded-xl bg-slate-900 border border-slate-600 text-white text-sm focus:ring-2 focus:ring-amber-500 outline-none">
+                            <input type="text" id="material-title" required placeholder="例如：【祝福詞】負責會對修繕感恩特別聚會賀詞" class="w-full px-4 py-3 rounded-xl bg-slate-900 border border-slate-600 text-white text-sm focus:ring-2 focus:ring-amber-500 outline-none">
                         </div>
 
                         <div>
                             <label for="material-desc" class="block text-sm font-bold text-amber-300 mb-2">
-                                文稿內容 / 照片故事背景說明
+                                文稿內容 / 說明摘要
                             </label>
-                            <textarea id="material-desc" rows="4" placeholder="請簡述這份資料或照片的背景年代、人物姓名或主要文稿內容..." class="w-full px-4 py-3 rounded-xl bg-slate-900 border border-slate-600 text-white text-sm focus:ring-2 focus:ring-amber-500 outline-none"></textarea>
+                            <textarea id="material-desc" rows="4" placeholder="請簡述這份資料的背景故事、內文概要或說明..." class="w-full px-4 py-3 rounded-xl bg-slate-900 border border-slate-600 text-white text-sm focus:ring-2 focus:ring-amber-500 outline-none"></textarea>
                         </div>
 
                         <div>
                             <label for="material-link" class="block text-sm font-bold text-amber-300 mb-2">
-                                雲端硬碟 / 照片圖床連結 (Google Drive / Line Album)
+                                雲端硬碟 / 檔案連結 (Google Drive)
                             </label>
                             <input type="url" id="material-link" value="https://drive.google.com/drive/folders/1d5QJx3x5aka2cBKGt8cOzYWFalQ5NiRv?usp=sharing" placeholder="例如：https://drive.google.com/drive/folders/..." class="w-full px-4 py-3 rounded-xl bg-slate-900 border border-slate-600 text-white text-sm focus:ring-2 focus:ring-amber-500 outline-none">
                             <span class="text-xs text-amber-300/80 mt-1 block flex items-center gap-1">
-                                <i class="fa-solid fa-circle-info"></i> 已預設帶入上巴陵教會 62 週年專刊官方 Google Drive 資料夾，亦可貼上其他個人雲端網址。
+                                <i class="fa-solid fa-circle-info"></i> 已預設帶入『上巴陵教會修繕感恩特別聚會』官方 Google Drive 資料夾網址。
                             </span>
                         </div>
 
                         <button type="submit" id="submit-staff-btn" class="w-full bg-gradient-to-r from-amber-500 to-amber-700 hover:from-amber-600 hover:to-amber-800 text-church-navy font-black py-4 rounded-xl text-base shadow-xl transition flex items-center justify-center gap-2">
-                            <i class="fa-solid fa-cloud-arrow-up"></i> 提交上傳至專刊編輯組備查
+                            <i class="fa-solid fa-cloud-arrow-up"></i> 提交至專刊編輯小組
                         </button>
                     </form>
                 </div>
@@ -531,17 +561,17 @@
                 <!-- Submitted Materials Tracker List -->
                 <div id="staff-records" class="mt-12 bg-slate-800 rounded-3xl p-6 sm:p-8 border border-slate-700">
                     <h3 class="text-xl font-bold text-amber-400 mb-4 font-serif flex items-center gap-2">
-                        <i class="fa-solid fa-list-check"></i> 工作人員已提交之專刊資料庫
+                        <i class="fa-solid fa-list-check"></i> 工作小組已提交之專刊資料庫
                     </h3>
                     <div class="overflow-x-auto">
                         <table class="w-full text-left text-xs text-slate-300">
                             <thead>
                                 <tr class="bg-slate-900 text-amber-300 uppercase font-bold border-b border-slate-700">
-                                    <th class="p-3">提交同工</th>
-                                    <th class="p-3">類別</th>
+                                    <th class="p-3">提交同工/小組</th>
+                                    <th class="p-3">目錄分類</th>
                                     <th class="p-3">主題名稱</th>
-                                    <th class="p-3">簡述與連結</th>
-                                    <th class="p-3 text-right">上傳時間</th>
+                                    <th class="p-3">簡述與網址</th>
+                                    <th class="p-3 text-right">時間</th>
                                 </tr>
                             </thead>
                             <tbody id="staff-materials-body" class="divide-y divide-slate-700">
@@ -576,11 +606,11 @@
                 <div class="w-12 h-12 bg-amber-500/20 text-amber-400 rounded-full flex items-center justify-center text-2xl mx-auto mb-2">
                     <i class="fa-solid fa-lock"></i>
                 </div>
-                <h3 class="text-xl font-bold font-serif text-amber-300">解鎖管理者權限</h3>
-                <p class="text-slate-400 text-xs mt-1">請輸入管理員密碼以進行歸零或修改資料（預設密碼：6262）</p>
+                <h3 class="text-xl font-bold font-serif text-amber-300">解鎖管理者後台</h3>
+                <p class="text-slate-400 text-xs mt-1">請輸入管理者密碼（預設密碼：6262）</p>
             </div>
             <div class="space-y-4">
-                <input type="password" id="admin-pass-input" placeholder="請輸入管理者密碼" class="w-full px-4 py-3 rounded-xl bg-slate-800 border border-slate-600 text-white text-center tracking-widest text-lg outline-none focus:ring-2 focus:ring-amber-500">
+                <input type="password" id="admin-pass-input" placeholder="請輸入密碼" class="w-full px-4 py-3 rounded-xl bg-slate-800 border border-slate-600 text-white text-center tracking-widest text-lg outline-none focus:ring-2 focus:ring-amber-500">
                 <div class="flex gap-3">
                     <button onclick="closeAdminAuthModal()" class="w-1/2 bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold py-3 rounded-xl text-sm">取消</button>
                     <button onclick="verifyAdminPassword()" class="w-1/2 bg-amber-500 hover:bg-amber-600 text-church-navy font-bold py-3 rounded-xl text-sm">解鎖進入</button>
@@ -636,7 +666,7 @@
                 <span class="font-serif font-bold text-base">真耶穌教會 上巴陵教會</span>
             </div>
             <p class="text-xs text-gray-400">
-                成立62年修繕感恩特別聚會 (2026/11/29)｜電子紀念專刊與報名上傳系統
+                『上巴陵教會修繕感恩特別聚會』(2026/11/29)｜電子紀念專刊與報名資料上傳系統
             </p>
         </div>
     </footer>
@@ -654,7 +684,6 @@
                 img.src = './' + encodeURIComponent(filename);
                 return;
             }
-            // Final Fallback Placeholder
             img.onerror = null;
             if (filename.includes('logo')) {
                 img.src = 'https://placehold.co/300x300/0f2c59/ffffff?text=TJC+Logo';
@@ -664,7 +693,7 @@
         };
     </script>
 
-    <!-- Firebase SDK & Logic Script -->
+    <!-- Firebase SDK & Core Logic -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
         import { getAuth, signInAnonymously, signInWithCustomToken } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
@@ -678,15 +707,15 @@
         let isFirebaseActive = false;
         let isAdminMode = false;
 
-        // Sample Data for Guests (Can be cleared to 0)
+        // Sample Data for Guests
         let guestList = [
-            { id: '1', name: '張主恩 執事', church: '大溪教會', attendCount: 3, stayCount: 3, needStay: true, blessing: '願神祝福上巴陵教會！', timestamp: '2026-09-10 14:30' },
-            { id: '2', name: '李聖愛 姊妹', church: '桃園教會', attendCount: 2, stayCount: 0, needStay: false, blessing: '祝賀62週年特會圓滿。', timestamp: '2026-09-10 16:15' }
+            { id: '1', name: '張主恩 執事', church: '大溪教會', attendCount: 3, stayCount: 3, needStay: true, blessing: '願神祝福上巴陵教會修繕感恩特別聚會！', timestamp: '2026-09-10 14:30' },
+            { id: '2', name: '李聖愛 姊妹', church: '桃園教會', attendCount: 2, stayCount: 0, needStay: false, blessing: '祝賀特會圓滿成功，願主賜福。', timestamp: '2026-09-10 16:15' }
         ];
 
-        // Sample Data for Staff Materials
+        // Sample Data for Staff Materials mapped to updated Working Groups
         let staffMaterialsList = [
-            { id: 'm1', staffName: '高同工', category: '教會歷史老照片', title: '1970年代第三間會堂完工奉獻聚會合照', desc: '照片中包含早期高執事與建堂同工合影', link: 'https://drive.google.com/drive/folders/1d5QJx3x5aka2cBKGt8cOzYWFalQ5NiRv?usp=sharing', timestamp: '2026-09-10 18:00' }
+            { id: 'm1', staffName: '祝福詞採編組 - 高同工', category: '1. 祝福詞 (祝福詞採編小組)', title: '負責會對修繕感恩特別聚會獻詞文稿', desc: '包含專刊第一章祝福詞與賀詞文稿備查', link: 'https://drive.google.com/drive/folders/1d5QJx3x5aka2cBKGt8cOzYWFalQ5NiRv?usp=sharing', timestamp: '2026-09-10 18:00' }
         ];
 
         document.addEventListener('DOMContentLoaded', () => {
@@ -765,7 +794,6 @@
             if (!confirm('【警告】確定要將所有已報名的資料與人數全部清空歸零嗎？此操作無法復原！')) return;
 
             if (isFirebaseActive && db) {
-                // Delete docs in Firestore
                 for (let item of guestList) {
                     try {
                         const docRef = doc(db, 'artifacts', appId, 'public', 'data', 'registrations', item.id);
@@ -848,7 +876,7 @@
             const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
             const link = document.createElement("a");
             link.href = URL.createObjectURL(blob);
-            link.setAttribute("download", `上巴陵教會62週年特會報名名冊_${new Date().toISOString().slice(0,10)}.csv`);
+            link.setAttribute("download", `上巴陵教會修繕感恩特別聚會報名名冊_${new Date().toISOString().slice(0,10)}.csv`);
             document.body.appendChild(link);
             link.click();
             document.body.removeChild(link);
@@ -867,16 +895,12 @@
         window.showPortalTab = function(tabName) {
             const publicContainer = document.getElementById('public-view-container');
             const staffContainer = document.getElementById('staff-view-container');
-            const publicNav = document.getElementById('public-nav');
-            const staffNav = document.getElementById('staff-nav');
             const publicBtn = document.getElementById('switch-public-btn');
             const staffBtn = document.getElementById('switch-staff-btn');
 
             if (tabName === 'staff') {
                 publicContainer.classList.add('hidden');
                 staffContainer.classList.remove('hidden');
-                publicNav.classList.add('hidden');
-                staffNav.classList.remove('hidden');
 
                 staffBtn.className = 'portal-tab-btn px-3 py-1 rounded-full font-bold bg-amber-500 text-church-navy transition';
                 publicBtn.className = 'portal-tab-btn px-3 py-1 rounded-full font-bold bg-white/10 hover:bg-white/20 text-white transition';
@@ -884,8 +908,6 @@
             } else {
                 staffContainer.classList.add('hidden');
                 publicContainer.classList.remove('hidden');
-                staffNav.classList.add('hidden');
-                publicNav.classList.remove('hidden');
 
                 publicBtn.className = 'portal-tab-btn px-3 py-1 rounded-full font-bold bg-amber-500 text-church-navy transition';
                 staffBtn.className = 'portal-tab-btn px-3 py-1 rounded-full font-bold bg-white/10 hover:bg-white/20 text-white transition';
@@ -990,7 +1012,7 @@
             }
 
             document.getElementById('staff-upload-form').reset();
-            showModal('專刊資料提交成功！', `已收到由 ${staffName} 同工上傳之「${title}」，感謝為電子專刊備料！`);
+            showModal('專刊資料提交成功！', `已收到由 ${staffName} 同工提交之「${title}」，感謝為電子專刊備料！`);
         }
 
         function renderAllUI() {
@@ -1053,7 +1075,7 @@
                     <td class="p-3 font-bold text-amber-300">${escapeHtml(m.staffName)}</td>
                     <td class="p-3"><span class="bg-slate-900 px-2 py-1 rounded text-slate-300">${escapeHtml(m.category)}</span></td>
                     <td class="p-3 font-medium text-white">${escapeHtml(m.title)}</td>
-                    <td class="p-3 text-slate-400 max-w-xs truncate">${escapeHtml(m.desc)} ${m.link ? `<a href="${m.link}" target="_blank" class="text-amber-400 underline ml-1">[硬碟連結]</a>` : ''}</td>
+                    <td class="p-3 text-slate-400 max-w-xs truncate">${escapeHtml(m.desc)} ${m.link ? `<a href="${m.link}" target="_blank" class="text-amber-400 underline ml-1">[硬碟網址]</a>` : ''}</td>
                     <td class="p-3 text-right text-slate-500">${m.timestamp || ''}</td>
                 `;
                 tbody.appendChild(tr);
