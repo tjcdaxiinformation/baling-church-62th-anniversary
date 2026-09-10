@@ -466,6 +466,12 @@
                     <p class="text-amber-100 text-sm mt-3 max-w-2xl mx-auto leading-relaxed">
                         歡迎工作人員、採訪組、文字組與美編同工於此專頁上傳電子紀念專刊所需的「歷史老照片、修繕側拍、感言文稿、見證與特刊文章」備查。
                     </p>
+                    <!-- Google Drive Folder Shortcut Button -->
+                    <div class="mt-6 flex justify-center">
+                        <a href="https://drive.google.com/drive/folders/1d5QJx3x5aka2cBKGt8cOzYWFalQ5NiRv?usp=sharing" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2.5 bg-amber-400 hover:bg-amber-300 text-church-navy font-bold px-6 py-3 rounded-2xl shadow-xl transition transform hover:-translate-y-0.5 text-sm">
+                            <i class="fa-brands fa-google-drive text-lg text-emerald-800"></i> 開啟 62 週年專刊 Google Drive 共享資料夾
+                        </a>
+                    </div>
                 </div>
 
                 <!-- Staff Upload Form -->
@@ -510,8 +516,10 @@
                             <label for="material-link" class="block text-sm font-bold text-amber-300 mb-2">
                                 雲端硬碟 / 照片圖床連結 (Google Drive / Line Album)
                             </label>
-                            <input type="url" id="material-link" placeholder="例如：https://drive.google.com/drive/folders/..." class="w-full px-4 py-3 rounded-xl bg-slate-900 border border-slate-600 text-white text-sm focus:ring-2 focus:ring-amber-500 outline-none">
-                            <span class="text-xs text-slate-400 mt-1 block">若資料已存於雲端硬碟或 Line 相簿，可貼上共享連結供編輯組下載排版。</span>
+                            <input type="url" id="material-link" value="https://drive.google.com/drive/folders/1d5QJx3x5aka2cBKGt8cOzYWFalQ5NiRv?usp=sharing" placeholder="例如：https://drive.google.com/drive/folders/..." class="w-full px-4 py-3 rounded-xl bg-slate-900 border border-slate-600 text-white text-sm focus:ring-2 focus:ring-amber-500 outline-none">
+                            <span class="text-xs text-amber-300/80 mt-1 block flex items-center gap-1">
+                                <i class="fa-solid fa-circle-info"></i> 已預設帶入上巴陵教會 62 週年專刊官方 Google Drive 資料夾，亦可貼上其他個人雲端網址。
+                            </span>
                         </div>
 
                         <button type="submit" id="submit-staff-btn" class="w-full bg-gradient-to-r from-amber-500 to-amber-700 hover:from-amber-600 hover:to-amber-800 text-church-navy font-black py-4 rounded-xl text-base shadow-xl transition flex items-center justify-center gap-2">
@@ -678,7 +686,7 @@
 
         // Sample Data for Staff Materials
         let staffMaterialsList = [
-            { id: 'm1', staffName: '高同工', category: '教會歷史老照片', title: '1970年代第三間會堂完工奉獻聚會合照', desc: '照片中包含早期高執事與建堂同工合影', link: 'https://drive.google.com/', timestamp: '2026-09-10 18:00' }
+            { id: 'm1', staffName: '高同工', category: '教會歷史老照片', title: '1970年代第三間會堂完工奉獻聚會合照', desc: '照片中包含早期高執事與建堂同工合影', link: 'https://drive.google.com/drive/folders/1d5QJx3x5aka2cBKGt8cOzYWFalQ5NiRv?usp=sharing', timestamp: '2026-09-10 18:00' }
         ];
 
         document.addEventListener('DOMContentLoaded', () => {
