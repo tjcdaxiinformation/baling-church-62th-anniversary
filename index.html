@@ -1,0 +1,820 @@
+<!DOCTYPE html>
+<html lang="zh-TW" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>真耶穌教會上巴陵教會 成立62年修繕感恩特別聚會 電子紀念專刊與資料上傳門戶</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;600;700;900&family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        church: {
+                            gold: '#C5A059',
+                            goldlight: '#DFBA6D',
+                            navy: '#0F2C59',
+                            blue: '#1E40AF',
+                            sky: '#38BDF8',
+                            bg: '#F8FAF9',
+                            card: '#FFFFFF',
+                            wood: '#8B5A2B'
+                        }
+                    },
+                    fontFamily: {
+                        serif: ['"Noto Serif TC"', 'serif'],
+                        sans: ['"Noto Sans TC"', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .gold-gradient-text {
+            background: linear-gradient(135deg, #B8860B 0%, #D4AF37 50%, #AA771C 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .bg-pattern {
+            background-color: #f8faf9;
+            background-image: radial-gradient(#d4af37 0.5px, transparent 0.5px), radial-gradient(#0f2c59 0.5px, #f8faf9 0.5px);
+            background-size: 20px 20px;
+            background-position: 0 0, 10px 10px;
+            background-opacity: 0.05;
+        }
+    </style>
+</head>
+<body class="font-sans text-gray-800 bg-gray-50 min-h-screen flex flex-col selection:bg-amber-200 selection:text-amber-900">
+
+    <!-- Portal Entrance Switch Bar -->
+    <div class="bg-church-navy text-white text-xs py-2 px-4 shadow-inner border-b border-amber-500/30">
+        <div class="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-2">
+            <div class="flex items-center gap-2">
+                <span class="bg-amber-500 text-church-navy font-bold px-2 py-0.5 rounded text-[10px]">62週年特會</span>
+                <span class="font-medium text-amber-200">請選擇存取入口：</span>
+            </div>
+            <div class="flex items-center space-x-2">
+                <button id="switch-public-btn" onclick="showPortalTab('public')" class="portal-tab-btn px-3 py-1 rounded-full font-bold bg-amber-500 text-church-navy transition">
+                    <i class="fa-solid fa-users mr-1"></i> 弟兄姊妹報名與專刊入口
+                </button>
+                <button id="switch-staff-btn" onclick="showPortalTab('staff')" class="portal-tab-btn px-3 py-1 rounded-full font-bold bg-white/10 hover:bg-white/20 text-white transition">
+                    <i class="fa-solid fa-cloud-arrow-up mr-1"></i> 工作人員專刊上傳專區
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navigation Bar -->
+    <header class="sticky top-0 z-40 bg-white/95 backdrop-blur-md shadow-md border-b border-amber-100 transition-all">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <!-- Logo & Church Title -->
+                <a href="#home" class="flex items-center space-x-3 group">
+                    <img src="上巴陵教會logo.jpg" alt="上巴陵教會Logo" class="h-12 w-auto object-contain group-hover:scale-105 transition-transform" onerror="this.onerror=null; this.src='https://placehold.co/100x100/0f2c59/ffffff?text=TJC';">
+                    <div class="flex flex-col">
+                        <span class="text-xs font-bold tracking-widest text-amber-700 uppercase">TRUE JESUS CHURCH</span>
+                        <span class="text-lg sm:text-xl font-black font-serif text-church-navy tracking-tight">真耶穌教會 上巴陵教會</span>
+                    </div>
+                </a>
+
+                <!-- Navigation Links for Public View -->
+                <nav id="public-nav" class="hidden md:flex space-x-6 lg:space-x-8 font-medium text-sm text-gray-700">
+                    <a href="#home" class="hover:text-amber-600 transition-colors py-2 border-b-2 border-transparent hover:border-amber-500">首頁</a>
+                    <a href="#special-issue" class="hover:text-amber-600 transition-colors py-2 border-b-2 border-transparent hover:border-amber-500">紀念專刊</a>
+                    <a href="#history" class="hover:text-amber-600 transition-colors py-2 border-b-2 border-transparent hover:border-amber-500">62年建堂沿革</a>
+                    <a href="#program" class="hover:text-amber-600 transition-colors py-2 border-b-2 border-transparent hover:border-amber-500">聚會流程</a>
+                    <a href="#invitation" class="hover:text-amber-600 transition-colors py-2 border-b-2 border-transparent hover:border-amber-500">電子邀請函</a>
+                    <a href="#attendees" class="hover:text-amber-600 transition-colors py-2 border-b-2 border-transparent hover:border-amber-500">嘉賓與統計</a>
+                </nav>
+
+                <!-- Navigation Links for Staff View -->
+                <nav id="staff-nav" class="hidden md:flex space-x-6 lg:space-x-8 font-medium text-sm text-gray-700">
+                    <a href="#staff-portal" class="text-amber-700 font-bold py-2 border-b-2 border-amber-500"><i class="fa-solid fa-file-arrow-up"></i> 專刊資料上傳</a>
+                    <a href="#staff-records" class="hover:text-amber-600 transition-colors py-2">已上傳資料清單</a>
+                </nav>
+
+                <!-- Action Button -->
+                <div class="hidden sm:flex items-center space-x-3">
+                    <a href="#rsvp" id="nav-action-btn" class="bg-gradient-to-r from-amber-600 to-amber-700 hover:from-amber-700 hover:to-amber-800 text-white px-5 py-2.5 rounded-full font-bold text-sm shadow-md transition flex items-center gap-2">
+                        <i class="fa-solid fa-pen-to-square"></i> 線上報名點選
+                    </a>
+                </div>
+
+                <!-- Mobile menu button -->
+                <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-btn" class="text-gray-700 hover:text-amber-600 p-2 rounded-md focus:outline-none">
+                        <i class="fa-solid fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div id="public-view-container">
+        <!-- Hero Banner Section -->
+        <section id="home" class="relative bg-church-navy text-white overflow-hidden py-16 lg:py-20">
+            <div class="absolute inset-0 z-0 opacity-25 bg-cover bg-center mix-blend-overlay" style="background-image: url('最新教會外觀.jpg');"></div>
+            <div class="absolute inset-0 bg-gradient-to-t from-church-navy via-church-navy/80 to-transparent z-0"></div>
+
+            <div class="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 text-center">
+                <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-amber-500/20 border border-amber-400/40 text-amber-300 text-sm font-semibold mb-6">
+                    <i class="fa-solid fa-cross"></i> 敬邀 主內同工、弟兄姊妹 蒞臨同頌主恩
+                </div>
+
+                <div class="mb-6 flex justify-center">
+                    <img src="上巴陵教會logo橫幅.jpg" alt="真耶穌教會 上巴陵教會" class="h-16 sm:h-20 object-contain bg-white/90 p-3 rounded-2xl border border-amber-300/50" onerror="this.onerror=null; this.src='上巴陵教會logo.jpg';">
+                </div>
+
+                <h1 class="text-3xl sm:text-5xl lg:text-6xl font-black font-serif tracking-tight text-white mb-4">
+                    成立62年修繕感恩特別聚會
+                </h1>
+                
+                <p class="text-amber-200 text-base sm:text-lg font-serif max-w-2xl mx-auto mb-8">
+                    「這殿後來的榮耀，必大過先前的榮耀；在這地方我必賜平安。這是萬軍之耶和華說的。」
+                    <span class="block text-xs sm:text-sm text-amber-300/80 mt-1 font-sans">（哈該書 二章 9 節）</span>
+                </p>
+
+                <!-- Event Quick Info Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 max-w-3xl mx-auto mb-8 bg-white/10 backdrop-blur-md rounded-2xl p-4 border border-white/15 shadow-xl">
+                    <div class="flex items-center justify-center space-x-3 p-2">
+                        <i class="fa-regular fa-calendar-check text-2xl text-amber-400"></i>
+                        <div class="text-left">
+                            <div class="text-xs text-gray-300">舉開日期</div>
+                            <div class="text-base font-bold text-white">2026 年 11 月 29 日 (日)</div>
+                        </div>
+                    </div>
+                    <div class="flex items-center justify-center space-x-3 p-2 border-t md:border-t-0 md:border-l border-white/10">
+                        <i class="fa-solid fa-clock text-2xl text-amber-400"></i>
+                        <div class="text-left">
+                            <div class="text-xs text-gray-300">聚會時間</div>
+                            <div class="text-base font-bold text-white">上午 10:00 (09:30接待)</div>
+                        </div>
+                    </div>
+                    <div class="flex items-center justify-center space-x-3 p-2 border-t md:border-t-0 md:border-l border-white/10">
+                        <i class="fa-solid fa-location-dot text-2xl text-amber-400"></i>
+                        <div class="text-left">
+                            <div class="text-xs text-gray-300">地點</div>
+                            <div class="text-base font-bold text-white">上巴陵教會 (桃園復興)</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Countdown Timer -->
+                <div class="mb-8">
+                    <div class="text-xs uppercase tracking-widest text-amber-300/90 font-bold mb-3">距離聚會舉開倒數 COUNTDOWN</div>
+                    <div id="countdown-timer" class="flex justify-center gap-3 text-center">
+                        <div class="bg-black/40 border border-amber-500/30 rounded-xl px-3 py-2 w-16 sm:w-20">
+                            <span id="cd-days" class="text-xl sm:text-3xl font-black font-serif text-amber-400 block">--</span>
+                            <span class="text-[10px] text-gray-300">天 Days</span>
+                        </div>
+                        <div class="bg-black/40 border border-amber-500/30 rounded-xl px-3 py-2 w-16 sm:w-20">
+                            <span id="cd-hours" class="text-xl sm:text-3xl font-black font-serif text-amber-400 block">--</span>
+                            <span class="text-[10px] text-gray-300">時 Hours</span>
+                        </div>
+                        <div class="bg-black/40 border border-amber-500/30 rounded-xl px-3 py-2 w-16 sm:w-20">
+                            <span id="cd-mins" class="text-xl sm:text-3xl font-black font-serif text-amber-400 block">--</span>
+                            <span class="text-[10px] text-gray-300">分 Mins</span>
+                        </div>
+                        <div class="bg-black/40 border border-amber-500/30 rounded-xl px-3 py-2 w-16 sm:w-20">
+                            <span id="cd-secs" class="text-xl sm:text-3xl font-black font-serif text-amber-400 block">--</span>
+                            <span class="text-[10px] text-gray-300">秒 Secs</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex flex-wrap justify-center gap-4">
+                    <a href="#rsvp" class="bg-amber-500 hover:bg-amber-400 text-church-navy font-black px-8 py-3.5 rounded-full text-base shadow-xl flex items-center gap-2">
+                        <i class="fa-solid fa-pen-to-square"></i> 線上點選報名
+                    </a>
+                    <button onclick="showPortalTab('staff')" class="bg-white/10 hover:bg-white/20 text-white font-semibold border border-white/30 px-6 py-3.5 rounded-full text-base backdrop-blur transition flex items-center gap-2">
+                        <i class="fa-solid fa-cloud-arrow-up text-amber-300"></i> 切換至工作人員上傳專區
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Live Stats Bar -->
+        <section class="relative z-20 -mt-8 max-w-6xl mx-auto px-4 sm:px-6">
+            <div class="bg-white rounded-2xl shadow-xl border border-amber-100 p-6 grid grid-cols-2 lg:grid-cols-4 gap-6 text-center">
+                <div class="p-3 border-r border-gray-100 last:border-r-0">
+                    <div class="text-xs font-bold text-gray-500 uppercase tracking-wider mb-1">報名參加總人數</div>
+                    <div class="text-3xl sm:text-4xl font-black text-amber-600 font-serif" id="stat-total-people">--</div>
+                    <div class="text-xs text-gray-400 mt-1">位弟兄姊妹與嘉賓</div>
+                </div>
+                <div class="p-3 border-r border-gray-100 last:border-r-0">
+                    <div class="text-xs font-bold text-gray-500 uppercase tracking-wider mb-1">需住宿總人數</div>
+                    <div class="text-3xl sm:text-4xl font-black text-blue-600 font-serif" id="stat-stay-people">--</div>
+                    <div class="text-xs text-gray-400 mt-1">位需安排住宿</div>
+                </div>
+                <div class="p-3 border-r border-gray-100 last:border-r-0">
+                    <div class="text-xs font-bold text-gray-500 uppercase tracking-wider mb-1">報名組數 / 單位</div>
+                    <div class="text-3xl sm:text-4xl font-black text-emerald-600 font-serif" id="stat-total-entries">--</div>
+                    <div class="text-xs text-gray-400 mt-1">組教會或家庭登記</div>
+                </div>
+                <div class="p-3">
+                    <div class="text-xs font-bold text-gray-500 uppercase tracking-wider mb-1">感恩祝福留言</div>
+                    <div class="text-3xl sm:text-4xl font-black text-purple-600 font-serif" id="stat-blessings-count">--</div>
+                    <div class="text-xs text-gray-400 mt-1">則祝賀與禱告</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 1: 電子紀念專刊 -->
+        <section id="special-issue" class="py-16 bg-pattern">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center max-w-3xl mx-auto mb-12">
+                    <span class="text-amber-700 font-bold text-xs uppercase tracking-widest bg-amber-100 px-3 py-1 rounded-full">COMMEMORATIVE ISSUE</span>
+                    <h2 class="text-3xl font-bold font-serif text-church-navy mt-3">電子紀念專刊主頁</h2>
+                    <p class="text-gray-600 text-sm mt-2">
+                        回顧主耶穌在上巴陵教會62年來的豐盛恩典，從草創時期到木造會堂，再到如今修繕一新。
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                    <!-- Card 1 -->
+                    <div class="bg-white rounded-2xl shadow-md border border-gray-100 overflow-hidden flex flex-col">
+                        <div class="bg-church-navy text-white p-6 relative">
+                            <span class="text-xs text-amber-300 font-semibold block mb-1">【感恩獻詞】</span>
+                            <h3 class="text-xl font-bold font-serif">建堂62週年修繕感恩特刊辭</h3>
+                        </div>
+                        <div class="p-6 flex-1 flex flex-col justify-between">
+                            <p class="text-gray-600 text-sm leading-relaxed mb-6">
+                                哈利路亞！讚美主耶穌聖名。上巴陵教會自創設以來已歷62載。位處高山之上，承蒙天父扶持，歷代同工與弟兄姊妹辛勤耕耘，聖工蒸蒸日上。
+                            </p>
+                            <div class="pt-4 border-t border-gray-100 text-xs text-gray-500 flex justify-between">
+                                <span class="font-bold text-church-navy">上巴陵教會 負責會</span>
+                                <span>2026.11</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 2 -->
+                    <div class="bg-white rounded-2xl shadow-md border border-gray-100 overflow-hidden flex flex-col">
+                        <div class="bg-gradient-to-r from-amber-700 to-amber-900 text-white p-6">
+                            <span class="text-xs text-amber-200 font-semibold block mb-1">【聖殿蛻變】</span>
+                            <h3 class="text-xl font-bold font-serif">昔日與今朝：會堂修繕寫真</h3>
+                        </div>
+                        <div class="p-6 flex-1 flex flex-col justify-between space-y-4">
+                            <div class="space-y-3">
+                                <div class="relative rounded-xl overflow-hidden shadow">
+                                    <img src="上巴陵第二間教會.jpg" alt="第二間會堂" class="w-full h-36 object-cover" onerror="this.onerror=null; this.src='https://placehold.co/600x400/1e40af/ffffff?text=第二間藍色木造會堂';">
+                                    <div class="absolute bottom-0 inset-x-0 bg-black/60 text-white text-[11px] p-1.5 text-center">
+                                        歷史記憶：第二間藍色木造會堂
+                                    </div>
+                                </div>
+                                <div class="relative rounded-xl overflow-hidden shadow">
+                                    <img src="最新教會外觀.jpg" alt="最新外觀" class="w-full h-36 object-cover" onerror="this.onerror=null; this.src='https://placehold.co/600x400/0f2c59/ffffff?text=修繕竣工現況';">
+                                    <div class="absolute bottom-0 inset-x-0 bg-amber-900/80 text-amber-200 text-[11px] p-1.5 text-center">
+                                        榮耀現況：2026年最新修繕竣工外觀
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 3 -->
+                    <div class="bg-white rounded-2xl shadow-md border border-gray-100 overflow-hidden flex flex-col">
+                        <div class="bg-blue-900 text-white p-6">
+                            <span class="text-xs text-blue-200 font-semibold block mb-1">【靈界燈塔】</span>
+                            <h3 class="text-xl font-bold font-serif">教會標誌與屬靈精神</h3>
+                        </div>
+                        <div class="p-6 flex-1 flex flex-col items-center text-center justify-between">
+                            <img src="上巴陵教會logo.jpg" alt="Logo" class="h-28 object-contain my-2" onerror="this.onerror=null; this.src='https://placehold.co/150x150/0f2c59/ffffff?text=Logo';">
+                            <p class="text-xs text-gray-600 leading-relaxed mb-4">
+                                聖靈如鴿降臨，帶著基督十字架榮耀，在上巴陵高山作明燈、廣傳真道。
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 2: 歷史沿革 -->
+        <section id="history" class="py-16 bg-white">
+            <div class="max-w-5xl mx-auto px-4 sm:px-6">
+                <div class="text-center mb-12">
+                    <span class="text-amber-700 font-bold text-xs uppercase tracking-widest bg-amber-100 px-3 py-1 rounded-full">MILESTONES</span>
+                    <h2 class="text-3xl font-bold font-serif text-church-navy mt-3">62年歷史沿革與修繕紀錄</h2>
+                </div>
+                <div class="relative border-l-2 border-amber-300 ml-4 md:ml-32 space-y-8">
+                    <div class="relative pl-8">
+                        <div class="absolute -left-3 top-1 bg-amber-500 text-white rounded-full w-6 h-6 flex items-center justify-center text-xs">1</div>
+                        <div class="md:absolute md:-left-32 md:top-0 text-amber-700 font-bold font-serif text-lg">1964 年</div>
+                        <div class="bg-gray-50 rounded-xl p-5 border border-gray-200 text-sm text-gray-700">
+                            <strong>【福音萌芽】</strong> 真道傳入上巴陵，同工弟兄姊妹開始家庭聚會，奠定信仰根基。
+                        </div>
+                    </div>
+                    <div class="relative pl-8">
+                        <div class="absolute -left-3 top-1 bg-blue-600 text-white rounded-full w-6 h-6 flex items-center justify-center text-xs">2</div>
+                        <div class="md:absolute md:-left-32 md:top-0 text-amber-700 font-bold font-serif text-lg">昔日會堂</div>
+                        <div class="bg-gray-50 rounded-xl p-5 border border-gray-200 text-sm text-gray-700">
+                            <strong>【藍色木造會堂】</strong> 建造經典斜頂藍色木造會堂，成為山區地標。
+                        </div>
+                    </div>
+                    <div class="relative pl-8">
+                        <div class="absolute -left-3 top-1 bg-emerald-600 text-white rounded-full w-6 h-6 flex items-center justify-center text-xs">3</div>
+                        <div class="md:absolute md:-left-32 md:top-0 text-amber-700 font-bold font-serif text-lg">2026 年</div>
+                        <div class="bg-amber-50/70 rounded-xl p-5 border border-amber-200 text-sm text-gray-700">
+                            <strong>【修繕竣工】</strong> 全面修繕外牆、禮拜堂內裝與客房設施，煥然一新獻於真神。
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 3: RSVP Form -->
+        <section id="rsvp" class="py-16 bg-pattern border-t border-gray-200">
+            <div class="max-w-3xl mx-auto px-4 sm:px-6">
+                <div class="bg-church-navy rounded-t-3xl p-8 text-white text-center shadow-lg">
+                    <span class="text-amber-300 text-xs font-bold uppercase tracking-wider">ONLINE REGISTRATION</span>
+                    <h2 class="text-3xl font-bold font-serif mt-2">特別聚會出席報名表</h2>
+                    <p class="text-gray-300 text-sm mt-2">請填寫報名資料，方便安排愛宴與住宿</p>
+                </div>
+
+                <div class="bg-white rounded-b-3xl shadow-2xl border-x border-b border-gray-200 p-6 sm:p-10">
+                    <form id="rsvp-form" class="space-y-6">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                            <div>
+                                <label for="guest-name" class="block text-sm font-bold text-gray-700 mb-2">姓名 / 代表人 <span class="text-red-500">*</span></label>
+                                <input type="text" id="guest-name" required placeholder="例如：張主恩 弟兄" class="w-full px-4 py-3 rounded-xl border border-gray-300 text-sm focus:ring-2 focus:ring-amber-500 outline-none">
+                            </div>
+                            <div>
+                                <label for="church-name" class="block text-sm font-bold text-gray-700 mb-2">所屬教會 / 單位 <span class="text-red-500">*</span></label>
+                                <input type="text" id="church-name" required placeholder="例如：桃園教會" class="w-full px-4 py-3 rounded-xl border border-gray-300 text-sm focus:ring-2 focus:ring-amber-500 outline-none">
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                            <div>
+                                <label for="attend-count" class="block text-sm font-bold text-gray-700 mb-2">報名人數 (含代表) <span class="text-red-500">*</span></label>
+                                <input type="number" id="attend-count" min="1" max="100" value="1" required class="w-full px-4 py-3 rounded-xl border border-gray-300 text-sm font-bold text-church-navy">
+                            </div>
+                            <div>
+                                <label for="phone-number" class="block text-sm font-bold text-gray-700 mb-2">聯絡電話 <span class="text-red-500">*</span></label>
+                                <input type="tel" id="phone-number" required placeholder="0912-345-678" class="w-full px-4 py-3 rounded-xl border border-gray-300 text-sm">
+                            </div>
+                        </div>
+
+                        <!-- Accommodation Needs -->
+                        <div class="bg-amber-50/60 p-5 rounded-2xl border border-amber-200 space-y-4">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <label class="font-bold text-church-navy text-sm block">住宿安排需求</label>
+                                    <span class="text-xs text-gray-500">是否需要教會協助安排住宿</span>
+                                </div>
+                                <div class="flex items-center gap-4">
+                                    <label class="inline-flex items-center cursor-pointer">
+                                        <input type="radio" name="need-stay" value="no" checked class="text-amber-600 focus:ring-amber-500">
+                                        <span class="ml-2 text-sm text-gray-700">不需要住宿</span>
+                                    </label>
+                                    <label class="inline-flex items-center cursor-pointer">
+                                        <input type="radio" name="need-stay" value="yes" class="text-amber-600 focus:ring-amber-500">
+                                        <span class="ml-2 text-sm font-bold text-blue-700">需要住宿</span>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div id="stay-count-container" class="hidden pt-3 border-t border-amber-200">
+                                <label for="stay-count" class="block text-xs font-bold text-blue-900 mb-1">需要住宿人數：</label>
+                                <input type="number" id="stay-count" min="1" max="100" value="1" class="w-full max-w-xs px-4 py-2 rounded-lg border border-blue-300 text-sm font-bold text-blue-800">
+                            </div>
+                        </div>
+
+                        <div>
+                            <label for="blessing-msg" class="block text-sm font-bold text-gray-700 mb-2">感恩祝福話語 / 禱告留言</label>
+                            <textarea id="blessing-msg" rows="3" placeholder="請填寫對上巴陵教會的祝福..." class="w-full px-4 py-3 rounded-xl border border-gray-300 text-sm"></textarea>
+                        </div>
+
+                        <button type="submit" id="submit-rsvp-btn" class="w-full bg-amber-600 hover:bg-amber-700 text-white font-black py-4 rounded-xl text-base shadow-lg transition">
+                            <i class="fa-solid fa-paper-plane mr-1"></i> 點選送出報名資料
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 4: Attendees 名冊 -->
+        <section id="attendees" class="py-16 bg-white border-t border-gray-200">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center max-w-3xl mx-auto mb-10">
+                    <span class="text-amber-700 font-bold text-xs uppercase tracking-widest bg-amber-100 px-3 py-1 rounded-full">GUESTBOOK</span>
+                    <h2 class="text-3xl font-bold font-serif text-church-navy mt-3">特別聚會出席紀錄名冊</h2>
+                </div>
+
+                <div class="mb-6 flex flex-col sm:flex-row justify-between items-center gap-4 bg-gray-50 p-4 rounded-2xl border">
+                    <input type="text" id="search-input" placeholder="搜尋姓名或教會..." class="w-full sm:w-80 px-4 py-2 rounded-xl border text-sm outline-none">
+                    <div class="text-xs text-gray-600">
+                        總報名人數：<span id="list-total-headcount" class="font-bold text-amber-700 text-base">0</span> 人｜需要住宿總人數：<span id="list-total-stay" class="font-bold text-blue-700 text-base">0</span> 人
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-2xl shadow border overflow-x-auto">
+                    <table class="w-full text-left border-collapse text-sm">
+                        <thead>
+                            <tr class="bg-church-navy text-white text-xs font-bold uppercase">
+                                <th class="p-4">代表 / 姓名</th>
+                                <th class="p-4">所屬教會</th>
+                                <th class="p-4 text-center">參加人數</th>
+                                <th class="p-4 text-center">住宿人數</th>
+                                <th class="p-4">感恩祝福留言</th>
+                                <th class="p-4 text-right">報名時間</th>
+                            </tr>
+                        </thead>
+                        <tbody id="guest-table-body" class="divide-y divide-gray-100"></tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Staff Dedicated Upload View Container (Toggled via Switcher) -->
+    <div id="staff-view-container" class="hidden">
+        <section id="staff-portal" class="py-16 bg-slate-900 text-white min-h-[85vh]">
+            <div class="max-w-5xl mx-auto px-4 sm:px-6">
+                
+                <!-- Staff Portal Header Banner -->
+                <div class="bg-gradient-to-r from-amber-700 to-amber-900 rounded-3xl p-8 shadow-2xl mb-10 border border-amber-500/30 text-center relative overflow-hidden">
+                    <div class="absolute -right-6 -bottom-6 text-white/5 text-9xl font-black">EDIT</div>
+                    <span class="inline-block bg-amber-400/20 text-amber-300 border border-amber-400/40 text-xs font-bold px-3 py-1 rounded-full mb-3">
+                        <i class="fa-solid fa-folder-open mr-1"></i> 電子專刊編輯組專用入口
+                    </span>
+                    <h2 class="text-3xl sm:text-4xl font-black font-serif text-white">專刊資料與照片上傳專區</h2>
+                    <p class="text-amber-100 text-sm mt-3 max-w-2xl mx-auto leading-relaxed">
+                        歡迎工作人員、採訪組、文字組與美編同工於此專頁上傳電子紀念專刊所需的「歷史老照片、修繕側拍、感言文稿、見證與特刊文章」備查。
+                    </p>
+                </div>
+
+                <!-- Staff Upload Form -->
+                <div class="bg-slate-800 rounded-3xl shadow-xl border border-slate-700 p-6 sm:p-10 text-slate-100">
+                    <form id="staff-upload-form" class="space-y-6">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                            <div>
+                                <label for="staff-name" class="block text-sm font-bold text-amber-300 mb-2">
+                                    上傳同工姓名 / 職稱 <span class="text-red-400">*</span>
+                                </label>
+                                <input type="text" id="staff-name" required placeholder="例如：林文字 執事 / 採訪組" class="w-full px-4 py-3 rounded-xl bg-slate-900 border border-slate-600 text-white text-sm focus:ring-2 focus:ring-amber-500 outline-none">
+                            </div>
+                            <div>
+                                <label for="material-category" class="block text-sm font-bold text-amber-300 mb-2">
+                                    資料分類類別 <span class="text-red-400">*</span>
+                                </label>
+                                <select id="material-category" required class="w-full px-4 py-3 rounded-xl bg-slate-900 border border-slate-600 text-white text-sm focus:ring-2 focus:ring-amber-500 outline-none">
+                                    <option value="教會歷史老照片">📷 歷史老照片（舊會堂/早期聖工）</option>
+                                    <option value="修繕工程記錄照">🔨 2026年修繕工程側拍照片</option>
+                                    <option value="感恩獻詞與文稿">✍️ 長執/同工感恩獻詞文稿</option>
+                                    <option value="蒙恩見證文章">📖 弟兄姊妹蒙恩見證與感言</option>
+                                    <option value="詩班與音影資料">🎵 詩班合照/影片/錄音連結</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div>
+                            <label for="material-title" class="block text-sm font-bold text-amber-300 mb-2">
+                                資料 / 相片主題名稱 <span class="text-red-400">*</span>
+                            </label>
+                            <input type="text" id="material-title" required placeholder="例如：1980年代第二間藍色會堂安息日聚會舊照" class="w-full px-4 py-3 rounded-xl bg-slate-900 border border-slate-600 text-white text-sm focus:ring-2 focus:ring-amber-500 outline-none">
+                        </div>
+
+                        <div>
+                            <label for="material-desc" class="block text-sm font-bold text-amber-300 mb-2">
+                                文稿內容 / 照片故事背景說明
+                            </label>
+                            <textarea id="material-desc" rows="4" placeholder="請簡述這份資料或照片的背景年代、人物姓名或主要文稿內容..." class="w-full px-4 py-3 rounded-xl bg-slate-900 border border-slate-600 text-white text-sm focus:ring-2 focus:ring-amber-500 outline-none"></textarea>
+                        </div>
+
+                        <div>
+                            <label for="material-link" class="block text-sm font-bold text-amber-300 mb-2">
+                                雲端硬碟 / 照片圖床連結 (Google Drive / Line Album)
+                            </label>
+                            <input type="url" id="material-link" placeholder="例如：https://drive.google.com/drive/folders/..." class="w-full px-4 py-3 rounded-xl bg-slate-900 border border-slate-600 text-white text-sm focus:ring-2 focus:ring-amber-500 outline-none">
+                            <span class="text-xs text-slate-400 mt-1 block">若資料已存於雲端硬碟或 Line 相簿，可貼上共享連結供編輯組下載排版。</span>
+                        </div>
+
+                        <button type="submit" id="submit-staff-btn" class="w-full bg-gradient-to-r from-amber-500 to-amber-700 hover:from-amber-600 hover:to-amber-800 text-church-navy font-black py-4 rounded-xl text-base shadow-xl transition flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-cloud-arrow-up"></i> 提交上傳至專刊編輯組備查
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Submitted Materials Tracker List -->
+                <div id="staff-records" class="mt-12 bg-slate-800 rounded-3xl p-6 sm:p-8 border border-slate-700">
+                    <h3 class="text-xl font-bold text-amber-400 mb-4 font-serif flex items-center gap-2">
+                        <i class="fa-solid fa-list-check"></i> 工作人員已提交之專刊資料庫
+                    </h3>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left text-xs text-slate-300">
+                            <thead>
+                                <tr class="bg-slate-900 text-amber-300 uppercase font-bold border-b border-slate-700">
+                                    <th class="p-3">提交同工</th>
+                                    <th class="p-3">類別</th>
+                                    <th class="p-3">主題名稱</th>
+                                    <th class="p-3">簡述與連結</th>
+                                    <th class="p-3 text-right">上傳時間</th>
+                                </tr>
+                            </thead>
+                            <tbody id="staff-materials-body" class="divide-y divide-slate-700">
+                                <!-- Populated dynamically -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+    </div>
+
+    <!-- Modal Dialog -->
+    <div id="modal-dialog" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm hidden">
+        <div class="bg-white rounded-3xl max-w-md w-full p-6 text-center shadow-2xl border border-amber-200">
+            <div id="modal-icon" class="w-16 h-16 bg-amber-100 text-amber-600 rounded-full flex items-center justify-center text-3xl mx-auto mb-4">
+                <i class="fa-solid fa-check"></i>
+            </div>
+            <h3 id="modal-title" class="text-xl font-bold font-serif text-church-navy mb-2">成功送出</h3>
+            <p id="modal-body" class="text-gray-600 text-sm leading-relaxed mb-6">您的資料已處理完成。</p>
+            <button id="modal-close-btn" class="bg-church-navy text-white font-bold px-6 py-2.5 rounded-xl text-sm">
+                確定關閉
+            </button>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-church-navy text-white py-10 border-t border-amber-500/20 text-center">
+        <div class="max-w-7xl mx-auto px-4 space-y-3">
+            <div class="flex justify-center items-center space-x-2">
+                <img src="上巴陵教會logo.jpg" alt="Logo" class="h-8 w-auto rounded" onerror="this.onerror=null; this.src='https://placehold.co/80x80/0f2c59/ffffff?text=TJC';">
+                <span class="font-serif font-bold text-base">真耶穌教會 上巴陵教會</span>
+            </div>
+            <p class="text-xs text-gray-400">
+                成立62年修繕感恩特別聚會 (2026/11/29)｜電子紀念專刊與報名上傳系統
+            </p>
+        </div>
+    </footer>
+
+    <!-- Firebase SDK & Logic Script -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getAuth, signInAnonymously, signInWithCustomToken } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getFirestore, collection, addDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+        const appId = typeof __app_id !== 'undefined' ? __app_id : 'baling-church-62th';
+        const firebaseConfig = typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : null;
+
+        let db = null;
+        let auth = null;
+        let isFirebaseActive = false;
+
+        // Sample Data for Guests
+        let guestList = [
+            { id: '1', name: '張主恩 執事', church: '大溪教會', attendCount: 3, stayCount: 3, needStay: true, blessing: '願神祝福上巴陵教會！', timestamp: '2026-09-10 14:30' },
+            { id: '2', name: '李聖愛 姊妹', church: '桃園教會', attendCount: 2, stayCount: 0, needStay: false, blessing: '祝賀62週年特會圓滿。', timestamp: '2026-09-10 16:15' }
+        ];
+
+        // Sample Data for Staff Materials
+        let staffMaterialsList = [
+            { id: 'm1', staffName: '高同工', category: '教會歷史老照片', title: '1970年代第三間會堂完工奉獻聚會合照', desc: '照片中包含早期高執事與建堂同工合影', link: 'https://drive.google.com/', timestamp: '2026-09-10 18:00' }
+        ];
+
+        document.addEventListener('DOMContentLoaded', () => {
+            initCountdown();
+            initStayToggle();
+
+            if (firebaseConfig) {
+                try {
+                    const app = initializeApp(firebaseConfig);
+                    auth = getAuth(app);
+                    db = getFirestore(app);
+                    const token = typeof __initial_auth_token !== 'undefined' ? __initial_auth_token : null;
+                    const authPromise = token ? signInWithCustomToken(auth, token) : signInAnonymously(auth);
+
+                    authPromise.then(() => {
+                        isFirebaseActive = true;
+                        subscribeFirestoreData();
+                        subscribeStaffData();
+                    }).catch(() => renderAllUI());
+                } catch (e) {
+                    renderAllUI();
+                }
+            } else {
+                renderAllUI();
+            }
+
+            // Public RSVP Form Submit
+            document.getElementById('rsvp-form').addEventListener('submit', async (e) => {
+                e.preventDefault();
+                await handleFormSubmit();
+            });
+
+            // Staff Material Form Submit
+            document.getElementById('staff-upload-form').addEventListener('submit', async (e) => {
+                e.preventDefault();
+                await handleStaffUploadSubmit();
+            });
+        });
+
+        // Tab Switching Logic
+        window.showPortalTab = function(tabName) {
+            const publicContainer = document.getElementById('public-view-container');
+            const staffContainer = document.getElementById('staff-view-container');
+            const publicNav = document.getElementById('public-nav');
+            const staffNav = document.getElementById('staff-nav');
+            const publicBtn = document.getElementById('switch-public-btn');
+            const staffBtn = document.getElementById('switch-staff-btn');
+
+            if (tabName === 'staff') {
+                publicContainer.classList.add('hidden');
+                staffContainer.classList.remove('hidden');
+                publicNav.classList.add('hidden');
+                staffNav.classList.remove('hidden');
+
+                staffBtn.className = 'portal-tab-btn px-3 py-1 rounded-full font-bold bg-amber-500 text-church-navy transition';
+                publicBtn.className = 'portal-tab-btn px-3 py-1 rounded-full font-bold bg-white/10 hover:bg-white/20 text-white transition';
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            } else {
+                staffContainer.classList.add('hidden');
+                publicContainer.classList.remove('hidden');
+                staffNav.classList.add('hidden');
+                publicNav.classList.remove('hidden');
+
+                publicBtn.className = 'portal-tab-btn px-3 py-1 rounded-full font-bold bg-amber-500 text-church-navy transition';
+                staffBtn.className = 'portal-tab-btn px-3 py-1 rounded-full font-bold bg-white/10 hover:bg-white/20 text-white transition';
+            }
+        };
+
+        function initCountdown() {
+            const eventDate = new Date('2026-11-29T10:00:00').getTime();
+            setInterval(() => {
+                const diff = eventDate - new Date().getTime();
+                if (diff <= 0) return;
+                document.getElementById('cd-days').innerText = Math.floor(diff / (1000 * 60 * 60 * 24));
+                document.getElementById('cd-hours').innerText = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                document.getElementById('cd-mins').innerText = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+                document.getElementById('cd-secs').innerText = Math.floor((diff % (1000 * 60)) / 1000);
+            }, 1000);
+        }
+
+        function initStayToggle() {
+            const radios = document.querySelectorAll('input[name="need-stay"]');
+            const stayContainer = document.getElementById('stay-count-container');
+            radios.forEach(radio => {
+                radio.addEventListener('change', (e) => {
+                    if (e.target.value === 'yes') {
+                        stayContainer.classList.remove('hidden');
+                    } else {
+                        stayContainer.classList.add('hidden');
+                    }
+                });
+            });
+        }
+
+        function subscribeFirestoreData() {
+            if (!db || !isFirebaseActive) return;
+            const colRef = collection(db, 'artifacts', appId, 'public', 'data', 'registrations');
+            onSnapshot(colRef, (snapshot) => {
+                const fetched = [];
+                snapshot.forEach(doc => fetched.push({ id: doc.id, ...doc.data() }));
+                if (fetched.length > 0) guestList = fetched;
+                renderAllUI();
+            }, () => renderAllUI());
+        }
+
+        function subscribeStaffData() {
+            if (!db || !isFirebaseActive) return;
+            const colRef = collection(db, 'artifacts', appId, 'public', 'data', 'staff_materials');
+            onSnapshot(colRef, (snapshot) => {
+                const fetched = [];
+                snapshot.forEach(doc => fetched.push({ id: doc.id, ...doc.data() }));
+                if (fetched.length > 0) staffMaterialsList = fetched;
+                renderStaffMaterialsUI();
+            }, () => renderStaffMaterialsUI());
+        }
+
+        async function handleFormSubmit() {
+            const name = document.getElementById('guest-name').value.trim();
+            const church = document.getElementById('church-name').value.trim();
+            const attendCount = parseInt(document.getElementById('attend-count').value, 10) || 1;
+            const phone = document.getElementById('phone-number').value.trim();
+            const needStay = document.querySelector('input[name="need-stay"]:checked').value === 'yes';
+            const stayCount = needStay ? (parseInt(document.getElementById('stay-count').value, 10) || 0) : 0;
+            const blessing = document.getElementById('blessing-msg').value.trim();
+
+            const record = {
+                name, church, attendCount, phone, needStay, stayCount,
+                blessing: blessing || '願主祝福上巴陵教會修繕感恩特別聚會！',
+                timestamp: new Date().toISOString().replace('T', ' ').substring(0, 16)
+            };
+
+            if (isFirebaseActive && db) {
+                const colRef = collection(db, 'artifacts', appId, 'public', 'data', 'registrations');
+                await addDoc(colRef, record);
+            } else {
+                record.id = 'local-' + Date.now();
+                guestList.unshift(record);
+                renderAllUI();
+            }
+
+            document.getElementById('rsvp-form').reset();
+            showModal('報名成功！', `感謝 ${name} 弟兄/姊妹之登記，已收到您的出席資訊（${attendCount} 人）。`);
+        }
+
+        async function handleStaffUploadSubmit() {
+            const staffName = document.getElementById('staff-name').value.trim();
+            const category = document.getElementById('material-category').value;
+            const title = document.getElementById('material-title').value.trim();
+            const desc = document.getElementById('material-desc').value.trim();
+            const link = document.getElementById('material-link').value.trim();
+
+            const record = {
+                staffName, category, title, desc, link,
+                timestamp: new Date().toISOString().replace('T', ' ').substring(0, 16)
+            };
+
+            if (isFirebaseActive && db) {
+                const colRef = collection(db, 'artifacts', appId, 'public', 'data', 'staff_materials');
+                await addDoc(colRef, record);
+            } else {
+                record.id = 'staff-m-' + Date.now();
+                staffMaterialsList.unshift(record);
+                renderStaffMaterialsUI();
+            }
+
+            document.getElementById('staff-upload-form').reset();
+            showModal('專刊資料提交成功！', `已收到由 ${staffName} 同工上傳之「${title}」，感謝為電子專刊備料！`);
+        }
+
+        function renderAllUI() {
+            const tableBody = document.getElementById('guest-table-body');
+            let totalHeadcount = 0;
+            let totalStay = 0;
+            let blessings = 0;
+            let churches = new Set();
+
+            tableBody.innerHTML = '';
+            guestList.forEach(item => {
+                totalHeadcount += parseInt(item.attendCount, 10) || 0;
+                totalStay += parseInt(item.stayCount, 10) || 0;
+                if (item.church) churches.add(item.church);
+                if (item.blessing) blessings++;
+
+                const tr = document.createElement('tr');
+                tr.className = 'hover:bg-amber-50/40 border-b border-gray-100';
+                tr.innerHTML = `
+                    <td class="p-4 font-bold text-church-navy">${escapeHtml(item.name)}</td>
+                    <td class="p-4 text-gray-700">${escapeHtml(item.church)}</td>
+                    <td class="p-4 text-center font-bold text-amber-700">${item.attendCount} 人</td>
+                    <td class="p-4 text-center">${item.needStay ? `<span class="bg-blue-100 text-blue-800 text-xs px-2 py-0.5 rounded font-bold">${item.stayCount} 位住宿</span>` : '<span class="text-xs text-gray-400">無</span>'}</td>
+                    <td class="p-4 text-xs italic text-gray-600 font-serif">"${escapeHtml(item.blessing)}"</td>
+                    <td class="p-4 text-right text-xs text-gray-400">${item.timestamp || ''}</td>
+                `;
+                tableBody.appendChild(tr);
+            });
+
+            document.getElementById('stat-total-people').innerText = totalHeadcount;
+            document.getElementById('stat-stay-people').innerText = totalStay;
+            document.getElementById('stat-total-entries').innerText = churches.size || guestList.length;
+            document.getElementById('stat-blessings-count').innerText = blessings;
+            document.getElementById('list-total-headcount').innerText = totalHeadcount;
+            document.getElementById('list-total-stay').innerText = totalStay;
+
+            renderStaffMaterialsUI();
+        }
+
+        function renderStaffMaterialsUI() {
+            const tbody = document.getElementById('staff-materials-body');
+            tbody.innerHTML = '';
+            staffMaterialsList.forEach(m => {
+                const tr = document.createElement('tr');
+                tr.className = 'hover:bg-slate-700/50';
+                tr.innerHTML = `
+                    <td class="p-3 font-bold text-amber-300">${escapeHtml(m.staffName)}</td>
+                    <td class="p-3"><span class="bg-slate-900 px-2 py-1 rounded text-slate-300">${escapeHtml(m.category)}</span></td>
+                    <td class="p-3 font-medium text-white">${escapeHtml(m.title)}</td>
+                    <td class="p-3 text-slate-400 max-w-xs truncate">${escapeHtml(m.desc)} ${m.link ? `<a href="${m.link}" target="_blank" class="text-amber-400 underline ml-1">[硬碟連結]</a>` : ''}</td>
+                    <td class="p-3 text-right text-slate-500">${m.timestamp || ''}</td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        function showModal(title, body) {
+            document.getElementById('modal-title').innerText = title;
+            document.getElementById('modal-body').innerText = body;
+            const modal = document.getElementById('modal-dialog');
+            modal.classList.remove('hidden');
+            document.getElementById('modal-close-btn').onclick = () => modal.classList.add('hidden');
+        }
+
+        function escapeHtml(str) {
+            if (!str) return '';
+            return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+        }
+    </script>
+</body>
+</html>
