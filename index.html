@@ -95,14 +95,11 @@
                     <a href="#attendees" class="hover:text-amber-600 transition-colors py-2 border-b-2 border-transparent hover:border-amber-500">嘉賓與統計</a>
                 </nav>
 
-                <!-- Navigation Links for Staff View -->
-                <nav id="staff-nav" class="hidden md:flex space-x-6 lg:space-x-8 font-medium text-sm text-gray-700">
-                    <a href="#staff-portal" class="text-amber-700 font-bold py-2 border-b-2 border-amber-500"><i class="fa-solid fa-file-arrow-up"></i> 專刊資料上傳</a>
-                    <a href="#staff-records" class="hover:text-amber-600 transition-colors py-2">已上傳資料清單</a>
-                </nav>
-
                 <!-- Action Button -->
                 <div class="hidden sm:flex items-center space-x-3">
+                    <button id="admin-toggle-btn" onclick="openAdminAuthModal()" class="bg-slate-700 hover:bg-slate-800 text-white px-3.5 py-2 rounded-full font-bold text-xs shadow-md transition flex items-center gap-1.5">
+                        <i class="fa-solid fa-user-gear text-amber-400"></i> 管理者模式
+                    </button>
                     <a href="#rsvp" id="nav-action-btn" class="bg-gradient-to-r from-amber-600 to-amber-700 hover:from-amber-700 hover:to-amber-800 text-white px-5 py-2.5 rounded-full font-bold text-sm shadow-md transition flex items-center gap-2">
                         <i class="fa-solid fa-pen-to-square"></i> 線上報名點選
                     </a>
@@ -409,8 +406,26 @@
                     <h2 class="text-3xl font-bold font-serif text-church-navy mt-3">特別聚會出席紀錄名冊</h2>
                 </div>
 
+                <!-- Admin Toolbar (Visible when Admin Mode is unlocked) -->
+                <div id="admin-controls-bar" class="hidden mb-6 bg-slate-900 text-white p-4 rounded-2xl border border-slate-700 flex flex-wrap items-center justify-between gap-4 shadow-lg">
+                    <div class="flex items-center gap-2">
+                        <span class="bg-emerald-500/20 border border-emerald-400/40 text-emerald-300 text-xs px-2.5 py-1 rounded-full font-bold">
+                            <i class="fa-solid fa-shield-halved mr-1"></i> 已開啟管理者模式
+                        </span>
+                        <span class="text-xs text-slate-300">您可在此進行報名人數歸零、修改或刪除資料</span>
+                    </div>
+                    <div class="flex flex-wrap items-center gap-2">
+                        <button onclick="exportToCSV()" class="bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold px-3 py-2 rounded-xl transition flex items-center gap-1">
+                            <i class="fa-solid fa-file-excel"></i> 匯出報名名冊 (CSV)
+                        </button>
+                        <button onclick="confirmClearAllData()" class="bg-red-600 hover:bg-red-700 text-white text-xs font-bold px-3 py-2 rounded-xl transition flex items-center gap-1">
+                            <i class="fa-solid fa-trash-can"></i> 一鍵歸零 / 清空所有資料
+                        </button>
+                    </div>
+                </div>
+
                 <div class="mb-6 flex flex-col sm:flex-row justify-between items-center gap-4 bg-gray-50 p-4 rounded-2xl border">
-                    <input type="text" id="search-input" placeholder="搜尋姓名或教會..." class="w-full sm:w-80 px-4 py-2 rounded-xl border text-sm outline-none">
+                    <input type="text" id="search-input" onkeyup="filterGuestTable()" placeholder="搜尋姓名或教會..." class="w-full sm:w-80 px-4 py-2 rounded-xl border text-sm outline-none focus:ring-2 focus:ring-amber-500">
                     <div class="text-xs text-gray-600">
                         總報名人數：<span id="list-total-headcount" class="font-bold text-amber-700 text-base">0</span> 人｜需要住宿總人數：<span id="list-total-stay" class="font-bold text-blue-700 text-base">0</span> 人
                     </div>
@@ -426,6 +441,7 @@
                                 <th class="p-4 text-center">住宿人數</th>
                                 <th class="p-4">感恩祝福留言</th>
                                 <th class="p-4 text-right">報名時間</th>
+                                <th class="p-4 text-center admin-col hidden">管理者操作</th>
                             </tr>
                         </thead>
                         <tbody id="guest-table-body" class="divide-y divide-gray-100"></tbody>
@@ -545,7 +561,66 @@
         </div>
     </div>
 
-    <!-- Footer -->
+    <!-- Admin Auth Password Modal -->
+    <div id="admin-auth-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm hidden">
+        <div class="bg-slate-900 text-white rounded-3xl max-w-md w-full p-6 border border-slate-700 shadow-2xl">
+            <div class="text-center mb-6">
+                <div class="w-12 h-12 bg-amber-500/20 text-amber-400 rounded-full flex items-center justify-center text-2xl mx-auto mb-2">
+                    <i class="fa-solid fa-lock"></i>
+                </div>
+                <h3 class="text-xl font-bold font-serif text-amber-300">解鎖管理者權限</h3>
+                <p class="text-slate-400 text-xs mt-1">請輸入管理員密碼以進行歸零或修改資料（預設密碼：6262）</p>
+            </div>
+            <div class="space-y-4">
+                <input type="password" id="admin-pass-input" placeholder="請輸入管理者密碼" class="w-full px-4 py-3 rounded-xl bg-slate-800 border border-slate-600 text-white text-center tracking-widest text-lg outline-none focus:ring-2 focus:ring-amber-500">
+                <div class="flex gap-3">
+                    <button onclick="closeAdminAuthModal()" class="w-1/2 bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold py-3 rounded-xl text-sm">取消</button>
+                    <button onclick="verifyAdminPassword()" class="w-1/2 bg-amber-500 hover:bg-amber-600 text-church-navy font-bold py-3 rounded-xl text-sm">解鎖進入</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit Guest Modal -->
+    <div id="edit-guest-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm hidden">
+        <div class="bg-white rounded-3xl max-w-lg w-full p-6 border border-amber-200 shadow-2xl text-left">
+            <h3 class="text-xl font-bold font-serif text-church-navy mb-4 flex items-center gap-2">
+                <i class="fa-solid fa-user-pen text-amber-600"></i> 修改報名資料
+            </h3>
+            <form id="edit-guest-form" class="space-y-4">
+                <input type="hidden" id="edit-guest-id">
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs font-bold text-gray-700 mb-1">代表姓名</label>
+                        <input type="text" id="edit-guest-name" required class="w-full px-3 py-2 rounded-lg border text-sm">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-gray-700 mb-1">所屬教會</label>
+                        <input type="text" id="edit-guest-church" required class="w-full px-3 py-2 rounded-lg border text-sm">
+                    </div>
+                </div>
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs font-bold text-gray-700 mb-1">參加人數</label>
+                        <input type="number" id="edit-guest-attend" min="0" required class="w-full px-3 py-2 rounded-lg border text-sm font-bold text-amber-700">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-gray-700 mb-1">住宿人數 (0為不需)</label>
+                        <input type="number" id="edit-guest-stay" min="0" required class="w-full px-3 py-2 rounded-lg border text-sm font-bold text-blue-700">
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-gray-700 mb-1">祝福留言</label>
+                    <textarea id="edit-guest-blessing" rows="2" class="w-full px-3 py-2 rounded-lg border text-sm"></textarea>
+                </div>
+                <div class="flex gap-3 pt-2">
+                    <button type="button" onclick="closeEditModal()" class="w-1/2 bg-gray-100 hover:bg-gray-200 text-gray-700 font-bold py-2.5 rounded-xl text-sm">取消</button>
+                    <button type="submit" class="w-1/2 bg-amber-600 hover:bg-amber-700 text-white font-bold py-2.5 rounded-xl text-sm">儲存變更</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
     <footer class="bg-church-navy text-white py-10 border-t border-amber-500/20 text-center">
         <div class="max-w-7xl mx-auto px-4 space-y-3">
             <div class="flex justify-center items-center space-x-2">
@@ -562,7 +637,7 @@
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
         import { getAuth, signInAnonymously, signInWithCustomToken } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
-        import { getFirestore, collection, addDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+        import { getFirestore, collection, doc, addDoc, updateDoc, deleteDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
         const appId = typeof __app_id !== 'undefined' ? __app_id : 'baling-church-62th';
         const firebaseConfig = typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : null;
@@ -570,8 +645,9 @@
         let db = null;
         let auth = null;
         let isFirebaseActive = false;
+        let isAdminMode = false;
 
-        // Sample Data for Guests
+        // Sample Data for Guests (Can be cleared to 0)
         let guestList = [
             { id: '1', name: '張主恩 執事', church: '大溪教會', attendCount: 3, stayCount: 3, needStay: true, blessing: '願神祝福上巴陵教會！', timestamp: '2026-09-10 14:30' },
             { id: '2', name: '李聖愛 姊妹', church: '桃園教會', attendCount: 2, stayCount: 0, needStay: false, blessing: '祝賀62週年特會圓滿。', timestamp: '2026-09-10 16:15' }
@@ -617,7 +693,144 @@
                 e.preventDefault();
                 await handleStaffUploadSubmit();
             });
+
+            // Edit Guest Form Submit
+            document.getElementById('edit-guest-form').addEventListener('submit', async (e) => {
+                e.preventDefault();
+                await handleEditGuestSubmit();
+            });
         });
+
+        // Admin Auth Functions
+        window.openAdminAuthModal = function() {
+            if (isAdminMode) {
+                showModal('管理者權限已啟用', '您目前已處於管理者模式，可直接在名冊進行修改或歸零作業。');
+                return;
+            }
+            document.getElementById('admin-pass-input').value = '';
+            document.getElementById('admin-auth-modal').classList.remove('hidden');
+        };
+
+        window.closeAdminAuthModal = function() {
+            document.getElementById('admin-auth-modal').classList.add('hidden');
+        };
+
+        window.verifyAdminPassword = function() {
+            const pwd = document.getElementById('admin-pass-input').value.trim();
+            if (pwd === '6262' || pwd === 'admin') {
+                isAdminMode = true;
+                closeAdminAuthModal();
+                document.getElementById('admin-controls-bar').classList.remove('hidden');
+                document.querySelectorAll('.admin-col').forEach(el => el.classList.remove('hidden'));
+                renderAllUI();
+                showModal('管理者解鎖成功', '已啟用管理者權限！您現在可以修改單筆資料、刪除或進行一鍵歸零。');
+            } else {
+                alert('密碼不正確，請重新輸入。');
+            }
+        };
+
+        // Admin Reset & Delete Functions
+        window.confirmClearAllData = async function() {
+            if (!confirm('【警告】確定要將所有已報名的資料與人數全部清空歸零嗎？此操作無法復原！')) return;
+
+            if (isFirebaseActive && db) {
+                // Delete docs in Firestore
+                for (let item of guestList) {
+                    try {
+                        const docRef = doc(db, 'artifacts', appId, 'public', 'data', 'registrations', item.id);
+                        await deleteDoc(docRef);
+                    } catch (err) {}
+                }
+            }
+            guestList = [];
+            renderAllUI();
+            showModal('已清空歸零', '所有報名資料與統計人數已成功清空歸零！');
+        };
+
+        window.deleteGuestRecord = async function(id) {
+            if (!confirm('確定要刪除此筆報名紀錄嗎？')) return;
+
+            if (isFirebaseActive && db) {
+                try {
+                    const docRef = doc(db, 'artifacts', appId, 'public', 'data', 'registrations', id);
+                    await deleteDoc(docRef);
+                } catch (e) {}
+            }
+            guestList = guestList.filter(item => item.id !== id);
+            renderAllUI();
+        };
+
+        window.openEditGuestModal = function(id) {
+            const item = guestList.find(g => g.id === id);
+            if (!item) return;
+
+            document.getElementById('edit-guest-id').value = item.id;
+            document.getElementById('edit-guest-name').value = item.name || '';
+            document.getElementById('edit-guest-church').value = item.church || '';
+            document.getElementById('edit-guest-attend').value = item.attendCount || 1;
+            document.getElementById('edit-guest-stay').value = item.stayCount || 0;
+            document.getElementById('edit-guest-blessing').value = item.blessing || '';
+            document.getElementById('edit-guest-modal').classList.remove('hidden');
+        };
+
+        window.closeEditModal = function() {
+            document.getElementById('edit-guest-modal').classList.add('hidden');
+        };
+
+        async function handleEditGuestSubmit() {
+            const id = document.getElementById('edit-guest-id').value;
+            const name = document.getElementById('edit-guest-name').value.trim();
+            const church = document.getElementById('edit-guest-church').value.trim();
+            const attendCount = parseInt(document.getElementById('edit-guest-attend').value, 10) || 0;
+            const stayCount = parseInt(document.getElementById('edit-guest-stay').value, 10) || 0;
+            const blessing = document.getElementById('edit-guest-blessing').value.trim();
+            const needStay = stayCount > 0;
+
+            const updatedData = { name, church, attendCount, stayCount, needStay, blessing };
+
+            if (isFirebaseActive && db) {
+                try {
+                    const docRef = doc(db, 'artifacts', appId, 'public', 'data', 'registrations', id);
+                    await updateDoc(docRef, updatedData);
+                } catch (e) {}
+            } else {
+                const idx = guestList.findIndex(g => g.id === id);
+                if (idx !== -1) {
+                    guestList[idx] = { ...guestList[idx], ...updatedData };
+                }
+            }
+
+            closeEditModal();
+            renderAllUI();
+            showModal('修改成功', `已更新 ${name} 弟兄/姊妹之報名資料。`);
+        }
+
+        window.exportToCSV = function() {
+            if (guestList.length === 0) {
+                alert('目前無任何報名資料可供匯出。');
+                return;
+            }
+            let csvContent = "\uFEFF代表姓名,所屬教會,參加人數,住宿人數,祝福留言,報名時間\n";
+            guestList.forEach(g => {
+                csvContent += `"${g.name}","${g.church}",${g.attendCount},${g.stayCount},"${g.blessing.replace(/"/g, '""')}","${g.timestamp}"\n`;
+            });
+            const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+            const link = document.createElement("a");
+            link.href = URL.createObjectURL(blob);
+            link.setAttribute("download", `上巴陵教會62週年特會報名名冊_${new Date().toISOString().slice(0,10)}.csv`);
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        };
+
+        window.filterGuestTable = function() {
+            const q = document.getElementById('search-input').value.toLowerCase();
+            const rows = document.querySelectorAll('#guest-table-body tr');
+            rows.forEach(row => {
+                const text = row.innerText.toLowerCase();
+                row.style.display = text.includes(q) ? '' : 'none';
+            });
+        };
 
         // Tab Switching Logic
         window.showPortalTab = function(tabName) {
@@ -765,6 +978,18 @@
 
                 const tr = document.createElement('tr');
                 tr.className = 'hover:bg-amber-50/40 border-b border-gray-100';
+                
+                let adminCellHtml = isAdminMode ? `
+                    <td class="p-4 text-center space-x-2">
+                        <button onclick="openEditGuestModal('${item.id}')" class="bg-amber-100 hover:bg-amber-200 text-amber-800 text-xs px-2.5 py-1 rounded font-bold transition">
+                            <i class="fa-solid fa-pen"></i> 修改
+                        </button>
+                        <button onclick="deleteGuestRecord('${item.id}')" class="bg-red-100 hover:bg-red-200 text-red-700 text-xs px-2.5 py-1 rounded font-bold transition">
+                            <i class="fa-solid fa-trash"></i> 刪除
+                        </button>
+                    </td>
+                ` : '';
+
                 tr.innerHTML = `
                     <td class="p-4 font-bold text-church-navy">${escapeHtml(item.name)}</td>
                     <td class="p-4 text-gray-700">${escapeHtml(item.church)}</td>
@@ -772,13 +997,14 @@
                     <td class="p-4 text-center">${item.needStay ? `<span class="bg-blue-100 text-blue-800 text-xs px-2 py-0.5 rounded font-bold">${item.stayCount} 位住宿</span>` : '<span class="text-xs text-gray-400">無</span>'}</td>
                     <td class="p-4 text-xs italic text-gray-600 font-serif">"${escapeHtml(item.blessing)}"</td>
                     <td class="p-4 text-right text-xs text-gray-400">${item.timestamp || ''}</td>
+                    ${adminCellHtml}
                 `;
                 tableBody.appendChild(tr);
             });
 
             document.getElementById('stat-total-people').innerText = totalHeadcount;
             document.getElementById('stat-stay-people').innerText = totalStay;
-            document.getElementById('stat-total-entries').innerText = churches.size || guestList.length;
+            document.getElementById('stat-total-entries').innerText = churches.size || (guestList.length ? guestList.length : 0);
             document.getElementById('stat-blessings-count').innerText = blessings;
             document.getElementById('list-total-headcount').innerText = totalHeadcount;
             document.getElementById('list-total-stay').innerText = totalStay;
