@@ -718,10 +718,9 @@
         let isFirebaseActive = false;
         let isAdminMode = false;
 
-        // Sample Data for Guests
+        // Sample Data for Guests (Updated according to user's request)
         let guestList = [
-            { id: '1', name: '張主恩 執事', church: '大溪教會', attendCount: 3, stayCount: 3, needStay: true, blessing: '願神祝福上巴陵教會修繕感恩特別聚會！', timestamp: '2026-09-10 14:30' },
-            { id: '2', name: '李聖愛 姊妹', church: '桃園教會', attendCount: 2, stayCount: 0, needStay: false, blessing: '祝賀修繕特會圓滿成功，願主賜福。', timestamp: '2026-09-10 16:15' }
+            { id: '1', name: '陳微慎 執事', church: '大溪教會', attendCount: 2, stayCount: 0, needStay: false, blessing: '願神記念', timestamp: '2026-09-10 14:30' }
         ];
 
         // Sample Data for Staff Materials
@@ -957,9 +956,13 @@
             onSnapshot(colRef, (snapshot) => {
                 const fetched = [];
                 snapshot.forEach(doc => fetched.push({ id: doc.id, ...doc.data() }));
-                if (fetched.length > 0) guestList = fetched;
+                // Always sync guestList directly with Cloud Database
+                guestList = fetched;
                 renderAllUI();
-            }, () => renderAllUI());
+            }, (err) => {
+                console.error("Cloud database sync error:", err);
+                renderAllUI();
+            });
         }
 
         function subscribeStaffData() {
@@ -968,9 +971,12 @@
             onSnapshot(colRef, (snapshot) => {
                 const fetched = [];
                 snapshot.forEach(doc => fetched.push({ id: doc.id, ...doc.data() }));
-                if (fetched.length > 0) staffMaterialsList = fetched;
+                staffMaterialsList = fetched;
                 renderStaffMaterialsUI();
-            }, () => renderStaffMaterialsUI());
+            }, (err) => {
+                console.error("Staff database sync error:", err);
+                renderStaffMaterialsUI();
+            });
         }
 
         async function handleFormSubmit() {
