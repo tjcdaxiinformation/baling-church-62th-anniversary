@@ -38,30 +38,8 @@
     </script>
 
     <style>
-        @media print {
-            .no-print {
-                display: none !important;
-            }
-            body {
-                background: white !important;
-                padding: 0 !important;
-                margin: 0 !important;
-            }
-            .poster-container, .invitation-card {
-                box-shadow: none !important;
-                border: none !important;
-                width: 100% !important;
-                max-width: 100% !important;
-                page-break-inside: avoid;
-            }
-            @page {
-                size: A4 portrait;
-                margin: 0.5cm;
-            }
-        }
-
         .gold-border-glow {
-            box-shadow: 0 0 30px rgba(197, 160, 89, 0.3);
+            box-shadow: 0 0 30px rgba(197, 160, 89, 0.35);
         }
         .bg-church-pattern {
             background-color: #0f2c59;
@@ -72,94 +50,14 @@
 </head>
 <body class="bg-slate-900 min-h-screen py-6 px-3 sm:px-4 flex flex-col justify-center items-center font-sans text-gray-800 selection:bg-amber-200">
 
-    <!-- Main Poster Home Section (Full-Bleed Cover) -->
+    <!-- Page 1: Poster 1 Full Showcase -->
     <div class="poster-container relative max-w-2xl w-full bg-white rounded-3xl shadow-2xl overflow-hidden border-4 border-church-gold/80 gold-border-glow transition-all mb-8">
         
-        <!-- Poster Image Showcase -->
+        <!-- Poster 1 Image -->
         <div class="relative w-full overflow-hidden bg-slate-100 flex justify-center items-center">
-            <img src="./%E7%B1%B3%E8%B7%AF%E8%A8%AD%E8%A8%88%E6%B5%B7%E5%A0%B11.jpg" alt="上巴陵教會修繕感恩特別聚會海報" class="w-full h-auto object-contain block max-h-[90vh] sm:max-h-none shadow-md" onerror="handleImgFallback(this, '米路設計海報1.jpg')">
+            <img src="./%E7%B1%B3%E8%B7%AF%E8%A8%AD%E8%A8%88%E6%B5%B7%E5%A0%B11.jpg" alt="上巴陵教會修繕感恩特別聚會海報1" class="w-full h-auto object-contain block max-h-[90vh] sm:max-h-none shadow-md" onerror="handleImgFallback(this, '米路設計海報1.jpg')">
         </div>
 
-        <!-- Floating Quick Action Overlay at Bottom of Poster -->
-        <div class="no-print bg-gradient-to-t from-slate-900/90 via-slate-900/60 to-transparent p-6 text-center text-white flex flex-col items-center gap-3">
-            <div class="text-xs text-amber-300 font-bold flex items-center gap-1.5">
-                <i class="fa-solid fa-sparkles text-amber-400"></i>
-                誠摯邀請您蒞臨，共享在屬靈的喜樂與神家的榮耀！
-            </div>
-            <div class="flex flex-wrap justify-center gap-3 w-full max-w-md">
-                <a href="#invite-details" class="w-full sm:w-auto bg-amber-500 hover:bg-amber-400 text-church-navy font-black px-6 py-3 rounded-xl text-sm shadow-xl flex items-center justify-center gap-2 transition transform hover:scale-105">
-                    <i class="fa-solid fa-arrow-down"></i> 查看完整地點地圖與 QR Code 線上報名
-                </a>
-            </div>
-        </div>
-    </div>
-
-    <!-- Detailed Printable Card Section with QR Code and Google Maps -->
-    <div id="invite-details" class="invitation-card relative max-w-2xl w-full bg-white rounded-3xl shadow-2xl overflow-hidden border-4 border-church-gold/80 gold-border-glow transition-all">
-        
-        <!-- Header Banner with Church Photo & Title -->
-        <div class="relative h-64 sm:h-80 bg-church-navy overflow-hidden">
-            <img src="./%E6%9C%80%E6%96%B0%E6%95%99%E6%9C%83%E5%A4%96%E8%A7%80.jpg" alt="最新教會外觀" class="w-full h-full object-cover object-top opacity-55 scale-105" onerror="handleImgFallback(this, '最新教會外觀.jpg')">
-            <div class="absolute inset-0 bg-gradient-to-b from-church-navy/40 via-church-navy/75 to-white"></div>
-            
-            <!-- Floating Header Content -->
-            <div class="absolute inset-0 p-6 flex flex-col justify-between items-center text-center z-10">
-                <div class="flex items-center justify-center gap-3 bg-white/95 backdrop-blur px-5 py-2 rounded-2xl shadow-md border border-amber-300">
-                    <img src="./%E4%B8%8A%E5%B7%B4%E9%99%B5%E6%95%99%E6%9C%83logo.jpg" alt="上巴陵教會Logo" class="h-8 w-auto object-contain" onerror="handleImgFallback(this, '上巴陵教會logo.jpg')">
-                    <div class="text-left">
-                        <div class="text-[10px] font-bold tracking-widest text-amber-800 uppercase">TRUE JESUS CHURCH</div>
-                        <div class="text-sm font-black font-serif text-church-navy">真耶穌教會 上巴陵教會</div>
-                    </div>
-                </div>
-
-                <div class="space-y-1">
-                    <span class="inline-block bg-amber-500 text-church-navy font-black text-xs px-3.5 py-1 rounded-full uppercase tracking-wider shadow">
-                        主內平安 誠摯敬邀
-                    </span>
-                    <h1 class="text-2xl sm:text-3xl font-black font-serif text-church-navy tracking-tight drop-shadow-sm mt-1">
-                        修繕感恩特別聚會
-                    </h1>
-                    <div class="text-xs font-serif text-amber-800 font-bold tracking-widest">
-                        修繕竣工 獻殿感恩
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Card Body Content -->
-        <div class="px-6 sm:px-10 py-8 bg-white relative z-20 space-y-6">
-            
-            <!-- Bible Scripture Box -->
-            <div class="bg-church-cream/70 rounded-2xl p-4 border border-amber-200 text-center relative overflow-hidden">
-                <div class="text-amber-800/20 text-5xl font-serif absolute -top-2 left-2">“</div>
-                <p class="text-xs sm:text-sm font-serif font-semibold text-church-navy leading-relaxed px-4 italic">
-                    「於是眾百姓同心合意，修造耶和華的殿。」
-                </p>
-                <div class="text-[11px] font-sans font-bold text-amber-700 mt-1.5">— 歷代志下 24 章 13 節</div>
-            </div>
-
-            <!-- Invitation Text -->
-            <div class="text-center text-sm text-gray-700 leading-relaxed font-serif space-y-2">
-                <p class="font-bold text-church-navy text-base">哈利路亞 弟兄姊妹平安 惠鑒：</p>
-                <p>
-                    承蒙天父真神的看顧與帶領，上巴陵教會修繕事工從規劃與同心禱告，並眾弟兄姊妹的代禱關心與奉獻參與，使能完成修繕。本會會堂修繕工程已圓滿完工。
-                </p>
-                <p>
-                    為了感謝神的帶領與恩典，我們將舉行「修繕感恩聚會」，誠摯邀請您蒞臨，共享在屬靈的喜樂與神家的榮耀！
-                </p>
-            </div>
-
-            <!-- Details & QR Code Grid with Google Maps Link -->
-            <div class="grid grid-cols-1 md:grid-cols-12 gap-6 items-center bg-slate-50 p-6 rounded-2xl border border-gray-200">
-                
-                <!-- Event Info Column -->
-                <div class="md:col-span-8 space-y-3.5 text-left text-xs sm:text-sm">
-                    <div class="flex items-start space-x-3">
-                        <div class="w-8 h-8 rounded-xl bg-amber-100 text-amber-800 flex items-center justify-center shrink-0 font-bold text-sm">
-                            <i class="fa-regular fa-calendar-check"></i>
-                        </div>
-                        <div>
-                            <div class="text-gray-500 text-[11px] font-bold">舉開日期 Date</div>
         <!-- Floating Quick Action Overlay at Bottom of Poster 1 -->
         <div class="no-print bg-gradient-to-t from-slate-900/90 via-slate-900/60 to-transparent p-6 text-center text-white flex flex-col items-center gap-3">
             <div class="text-xs text-amber-300 font-bold flex items-center gap-1.5">
@@ -174,65 +72,80 @@
         </div>
     </div>
 
-    <!-- Page 2: Poster 2 with Integrated Info & QR Code Overlay -->
+    <!-- Page 2: Poster 2 (2/3 height) + Integrated Information Panel (1/3 height) -->
     <div id="invite-page-2" class="invitation-card relative max-w-2xl w-full bg-white rounded-3xl shadow-2xl overflow-hidden border-4 border-church-gold/80 gold-border-glow transition-all">
         
-        <!-- Poster 2 Image Section -->
-        <div class="relative w-full overflow-hidden bg-slate-100 flex justify-center items-center">
-            <img src="./%E7%B1%B3%E8%B7%AF%E8%A8%AD%E8%A8%88%E6%B5%B7%E5%A0%B12.jpg" alt="上巴陵教會修繕感恩特別聚會海報2" class="w-full h-auto object-contain block max-h-[90vh] sm:max-h-none shadow-md" onerror="handleImgFallback(this, '米路設計海報2.jpg')">
+        <!-- Top 2/3: Poster 2 Visual Subject -->
+        <div class="relative w-full overflow-hidden bg-slate-100 flex justify-center items-center border-b-2 border-church-gold/50">
+            <img src="./%E7%B1%B3%E8%B7%AF%E8%A8%AD%E8%A8%88%E6%B5%B7%E5%A0%B12.jpg" alt="上巴陵教會修繕感恩特別聚會海報2" class="w-full h-auto object-contain block shadow-sm" onerror="handleImgFallback(this, '米路設計海報2.jpg')">
+        </div>
+
+        <!-- Bottom 1/3: Integrated Info Panel (Location, Contact, QR Code, Signature) -->
+        <div class="bg-gradient-to-b from-amber-50/60 via-white to-amber-50/40 p-6 sm:p-8 space-y-6 text-church-navy">
             
-            <!-- Floating Integrated Details Overlay at Bottom Right -->
-            <div class="absolute bottom-3 right-3 sm:bottom-6 sm:right-6 max-w-[92%] sm:max-w-md bg-white/95 backdrop-blur-md p-4 sm:p-5 rounded-2xl border-2 border-church-gold/90 shadow-2xl text-church-navy text-left space-y-3">
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-6 items-center">
                 
-                <!-- Location & Address with Google Maps Link -->
-                <div class="space-y-1">
-                    <div class="text-[10px] font-bold text-amber-800 uppercase tracking-wider flex items-center gap-1">
-                        <i class="fa-solid fa-location-dot text-amber-600"></i> 聚會地點 Location & Address
+                <!-- Left/Top Info Column -->
+                <div class="md:col-span-7 space-y-4 text-left">
+                    
+                    <!-- Location & Address -->
+                    <div class="space-y-1">
+                        <div class="text-xs font-bold text-amber-800 uppercase tracking-wider flex items-center gap-1.5">
+                            <i class="fa-solid fa-location-dot text-amber-600 text-sm"></i> 聚會地點 Location & Address
+                        </div>
+                        <div class="font-black font-serif text-church-navy text-base sm:text-lg">
+                            真耶穌教會 上巴陵教會
+                        </div>
+                        <a href="https://maps.google.com/?cid=12259690429415433747" target="_blank" rel="noopener noreferrer" class="inline-flex items-start gap-1.5 text-xs text-amber-800 hover:text-amber-950 font-bold underline leading-snug group mt-0.5">
+                            <i class="fa-solid fa-map-location-dot text-amber-600 group-hover:scale-110 transition-transform mt-0.5"></i>
+                            <span>33644 桃園市復興區華陵里9鄰40號 <span class="text-[11px] text-amber-700">(點擊開啟Google地圖)</span></span>
+                            <i class="fa-solid fa-arrow-up-right-from-square text-[10px] mt-0.5"></i>
+                        </a>
                     </div>
-                    <div class="font-black font-serif text-church-navy text-sm sm:text-base">
-                        真耶穌教會 上巴陵教會
+
+                    <!-- Contact Person -->
+                    <div class="pt-3 border-t border-amber-200/80 text-xs sm:text-sm font-bold text-church-navy flex items-center gap-2">
+                        <div class="w-7 h-7 rounded-lg bg-amber-100 text-amber-800 flex items-center justify-center shrink-0">
+                            <i class="fa-solid fa-user-tie"></i>
+                        </div>
+                        <div>
+                            <span class="text-gray-500 text-[11px] block font-normal">聯絡資訊 Contact</span>
+                            <span>聯絡人：駐牧傳道 陳木群傳道</span>
+                        </div>
                     </div>
-                    <a href="https://maps.google.com/?cid=12259690429415433747" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1 text-xs text-amber-800 hover:text-amber-950 font-bold underline leading-tight group">
-                        <i class="fa-solid fa-map-location-dot text-amber-600 group-hover:scale-110 transition-transform"></i>
-                        33644 桃園市復興區華陵里9鄰40號 (點擊開啟Google地圖)
-                        <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+
+                </div>
+
+                <!-- Right/Bottom QR Code Column -->
+                <div class="md:col-span-5 flex flex-col items-center justify-center text-center p-4 bg-white rounded-2xl shadow-md border border-amber-200 gap-2">
+                    <div class="bg-white p-2 rounded-xl shadow border border-amber-300">
+                        <div id="qrcode" class="w-24 h-24 sm:w-28 sm:h-28 flex items-center justify-center"></div>
+                    </div>
+                    <div class="space-y-0.5">
+                        <div class="font-black font-serif text-church-navy text-xs sm:text-sm">
+                            報名表單及電子紀念專刊 QR Code
+                        </div>
+                        <div class="text-[11px] text-amber-800 font-bold flex items-center justify-center gap-1">
+                            <i class="fa-solid fa-qrcode"></i> 掃描 QR Code 線上報名
+                        </div>
+                        <div class="text-[10px] text-gray-500 font-bold">
+                            統計愛餐與住宿人數
+                        </div>
+                    </div>
+                    <a href="https://tjcdaxiinformation.github.io/baling-church-62th-anniversary/" target="_blank" class="text-[10px] text-amber-700 hover:underline font-mono block truncate max-w-[200px]">
+                        tjcdaxiinformation.github.io/baling-church-62th-anniversary/
                     </a>
                 </div>
 
-                <!-- Contact Person -->
-                <div class="pt-2 border-t border-amber-200/80 flex items-center justify-between text-xs">
-                    <div class="font-bold text-church-navy flex items-center gap-1">
-                        <i class="fa-solid fa-user-tie text-purple-700"></i> 聯絡人：駐牧傳道 陳木群傳道
-                    </div>
-                </div>
-
-                <!-- QR Code & Registration Link Box -->
-                <div class="pt-2 border-t border-amber-200/80 flex items-center gap-3">
-                    <div class="bg-white p-1.5 rounded-xl shadow border border-amber-300 shrink-0">
-                        <div id="qrcode" class="w-20 h-20 sm:w-24 sm:h-24 flex items-center justify-center"></div>
-                    </div>
-                    <div class="space-y-1 text-xs">
-                        <div class="font-black font-serif text-church-navy leading-snug">
-                            報名表單及電子紀念專刊 QR Code
-                        </div>
-                        <div class="text-[10px] text-amber-800 font-bold">
-                            <i class="fa-solid fa-qrcode mr-0.5"></i> 掃描 QR Code 線上報名
-                        </div>
-                        <div class="text-[9px] text-gray-500 font-bold">
-                            統計愛餐與住宿人數
-                        </div>
-                        <a href="https://tjcdaxiinformation.github.io/baling-church-62th-anniversary/" target="_blank" class="text-[10px] text-amber-700 hover:underline font-mono block truncate max-w-[170px] sm:max-w-[200px]">
-                            tjcdaxiinformation.github.io/baling-church-62th-anniversary/
-                        </a>
-                    </div>
-                </div>
-
-                <!-- Signature -->
-                <div class="pt-2 border-t border-amber-200/80 text-[10px] text-center font-serif font-bold text-church-navy">
-                    真耶穌教會上巴陵教會職務會暨全體信徒 敬邀 ✝
-                </div>
-
             </div>
+
+            <!-- Signature Line -->
+            <div class="pt-4 border-t border-amber-300/60 text-center font-serif font-bold text-church-navy text-xs sm:text-sm flex items-center justify-center gap-2">
+                <i class="fa-solid fa-cross text-amber-600 text-xs"></i>
+                <span>真耶穌教會上巴陵教會職務會暨全體信徒 敬邀</span>
+                <i class="fa-solid fa-cross text-amber-600 text-xs"></i>
+            </div>
+
         </div>
     </div>
 
