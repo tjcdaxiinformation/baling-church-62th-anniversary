@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh-TW">
+<html lang="zh-TW" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -47,21 +47,21 @@
                 padding: 0 !important;
                 margin: 0 !important;
             }
-            .invitation-card {
+            .poster-container, .invitation-card {
                 box-shadow: none !important;
-                border: 2px solid #C5A059 !important;
+                border: none !important;
                 width: 100% !important;
                 max-width: 100% !important;
                 page-break-inside: avoid;
             }
             @page {
-                size: A5 portrait;
-                margin: 1cm;
+                size: A4 portrait;
+                margin: 0.5cm;
             }
         }
 
         .gold-border-glow {
-            box-shadow: 0 0 25px rgba(197, 160, 89, 0.25);
+            box-shadow: 0 0 30px rgba(197, 160, 89, 0.3);
         }
         .bg-church-pattern {
             background-color: #0f2c59;
@@ -70,7 +70,7 @@
         }
     </style>
 </head>
-<body class="bg-slate-900 min-h-screen py-6 px-4 flex flex-col justify-center items-center font-sans text-gray-800 selection:bg-amber-200">
+<body class="bg-slate-900 min-h-screen py-6 px-3 sm:px-4 flex flex-col justify-center items-center font-sans text-gray-800 selection:bg-amber-200">
 
     <!-- Top Action Bar for Users (Hidden during printing) -->
     <div class="no-print max-w-2xl w-full mb-6 flex flex-wrap items-center justify-between gap-3 bg-white/10 backdrop-blur-md p-4 rounded-2xl border border-white/20 text-white shadow-lg">
@@ -78,27 +78,52 @@
             <a href="./index.html" class="bg-white/20 hover:bg-white/30 text-white text-xs font-bold px-3 py-2 rounded-xl transition flex items-center gap-1.5">
                 <i class="fa-solid fa-arrow-left"></i> 返回專刊報名門戶
             </a>
-            <span class="text-xs text-amber-300 font-medium hidden sm:inline"><i class="fa-solid fa-envelope-open-text mr-1"></i> 修繕感恩聚會 電子邀請函</span>
+            <span class="text-xs text-amber-300 font-medium hidden sm:inline"><i class="fa-solid fa-envelope-open-text mr-1"></i> 修繕感恩特別聚會 電子邀請函</span>
         </div>
         <div class="flex items-center gap-2">
-            <button onclick="window.print()" class="bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-church-navy font-black text-xs px-4 py-2 rounded-xl shadow-md transition flex items-center gap-1.5">
-                <i class="fa-solid fa-print"></i> 列印 / 儲存為 PDF
+            <a href="#invite-details" class="bg-amber-500 hover:bg-amber-400 text-church-navy font-bold text-xs px-3 py-2 rounded-xl transition flex items-center gap-1">
+                <i class="fa-solid fa-qrcode"></i> 掃碼報名資訊
+            </a>
+            <button onclick="window.print()" class="bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-church-navy font-black text-xs px-3.5 py-2 rounded-xl shadow-md transition flex items-center gap-1.5">
+                <i class="fa-solid fa-print"></i> 列印 / 儲存PDF
             </button>
             <button onclick="copyInviteLink()" class="bg-slate-800 hover:bg-slate-700 text-amber-300 border border-amber-400/40 font-bold text-xs px-3.5 py-2 rounded-xl transition flex items-center gap-1.5">
-                <i class="fa-solid fa-link"></i> 複製報名網址
+                <i class="fa-solid fa-link"></i> 複製網址
             </button>
         </div>
     </div>
 
-    <!-- Invitation Card Container -->
-    <div class="invitation-card relative max-w-2xl w-full bg-white rounded-3xl shadow-2xl overflow-hidden border-4 border-church-gold/80 gold-border-glow transition-all">
+    <!-- Main Poster Home Section (Full-Bleed Cover) -->
+    <div class="poster-container relative max-w-2xl w-full bg-white rounded-3xl shadow-2xl overflow-hidden border-4 border-church-gold/80 gold-border-glow transition-all mb-8">
         
-        <!-- Background Hero Layer with Church Exterior Photo -->
-        <div class="relative h-72 sm:h-96 bg-church-navy overflow-hidden">
-            <img src="./%E6%9C%80%E6%96%B0%E6%95%99%E6%9C%83%E5%A4%96%E8%A7%80.jpg" alt="最新教會外觀" class="w-full h-full object-cover object-top opacity-50 scale-105 transition-transform duration-700" onerror="handleImgFallback(this, '最新教會外觀.jpg')">
-            <div class="absolute inset-0 bg-gradient-to-b from-church-navy/40 via-church-navy/70 to-white"></div>
+        <!-- Poster Image Showcase -->
+        <div class="relative w-full overflow-hidden bg-slate-100 flex justify-center items-center">
+            <img src="./%E7%B1%B3%E8%B7%AF%E8%A8%AD%E8%A8%88%E6%B5%B7%E5%A0%B11.jpg" alt="上巴陵教會修繕感恩特別聚會海報" class="w-full h-auto object-contain block max-h-[90vh] sm:max-h-none shadow-md" onerror="handleImgFallback(this, '米路設計海報1.jpg')">
+        </div>
+
+        <!-- Floating Quick Action Overlay at Bottom of Poster -->
+        <div class="no-print bg-gradient-to-t from-slate-900/90 via-slate-900/60 to-transparent p-6 text-center text-white flex flex-col items-center gap-3">
+            <div class="text-xs text-amber-300 font-bold flex items-center gap-1.5">
+                <i class="fa-solid fa-sparkles text-amber-400"></i>
+                誠摯邀請您蒞臨，共享在屬靈的喜樂與神家的榮耀！
+            </div>
+            <div class="flex flex-wrap justify-center gap-3 w-full max-w-md">
+                <a href="#invite-details" class="w-full sm:w-auto bg-amber-500 hover:bg-amber-400 text-church-navy font-black px-6 py-3 rounded-xl text-sm shadow-xl flex items-center justify-center gap-2 transition transform hover:scale-105">
+                    <i class="fa-solid fa-arrow-down"></i> 查看完整地點地圖與 QR Code 線上報名
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Detailed Printable Card Section with QR Code and Google Maps -->
+    <div id="invite-details" class="invitation-card relative max-w-2xl w-full bg-white rounded-3xl shadow-2xl overflow-hidden border-4 border-church-gold/80 gold-border-glow transition-all">
+        
+        <!-- Header Banner with Church Photo & Title -->
+        <div class="relative h-64 sm:h-80 bg-church-navy overflow-hidden">
+            <img src="./%E6%9C%80%E6%96%B0%E6%95%99%E6%9C%83%E5%A4%96%E8%A7%80.jpg" alt="最新教會外觀" class="w-full h-full object-cover object-top opacity-55 scale-105" onerror="handleImgFallback(this, '最新教會外觀.jpg')">
+            <div class="absolute inset-0 bg-gradient-to-b from-church-navy/40 via-church-navy/75 to-white"></div>
             
-            <!-- Floating Decorative Header Content -->
+            <!-- Floating Header Content -->
             <div class="absolute inset-0 p-6 flex flex-col justify-between items-center text-center z-10">
                 <div class="flex items-center justify-center gap-3 bg-white/95 backdrop-blur px-5 py-2 rounded-2xl shadow-md border border-amber-300">
                     <img src="./%E4%B8%8A%E5%B7%B4%E9%99%B5%E6%95%99%E6%9C%83logo.jpg" alt="上巴陵教會Logo" class="h-8 w-auto object-contain" onerror="handleImgFallback(this, '上巴陵教會logo.jpg')">
@@ -129,19 +154,19 @@
             <div class="bg-church-cream/70 rounded-2xl p-4 border border-amber-200 text-center relative overflow-hidden">
                 <div class="text-amber-800/20 text-5xl font-serif absolute -top-2 left-2">“</div>
                 <p class="text-xs sm:text-sm font-serif font-semibold text-church-navy leading-relaxed px-4 italic">
-                    「這殿後來的榮耀，必大過先前的榮耀；在這地方我必賜平安。這是萬軍之耶和華說的。」
+                    「於是眾百姓同心合意，修造耶和華的殿。」
                 </p>
-                <div class="text-[11px] font-sans font-bold text-amber-700 mt-1.5">— 哈該書 二章 9 節</div>
+                <div class="text-[11px] font-sans font-bold text-amber-700 mt-1.5">— 歷代志下 24 章 13 節</div>
             </div>
 
             <!-- Invitation Text -->
             <div class="text-center text-sm text-gray-700 leading-relaxed font-serif space-y-2">
-                <p class="font-bold text-church-navy text-base">敬啟者 / 主內同工、弟兄姊妹 惠鑒：</p>
+                <p class="font-bold text-church-navy text-base">哈利路亞 弟兄姊妹平安 惠鑒：</p>
                 <p>
-                    蒙主施恩引導與天父賞賜，並眾同工無私獻心獻力，上巴陵教會聖殿修繕工程業已順利完工！
+                    承蒙天父真神的看顧與帶領，上巴陵教會修繕事工從規劃與同心禱告，並眾弟兄姊妹的代禱關心與奉獻參與，使能完成修繕。本會會堂修繕工程已圓滿完工。
                 </p>
                 <p>
-                    茲定於以下時間舉開修繕感恩特別聚會，誠摯邀請 尊駕 蒞臨同頌主恩、共享主愛！
+                    為了感謝神的帶領與恩典，我們將舉行「修繕感恩聚會」，誠摯邀請您蒞臨，共享在屬靈的喜樂與神家的榮耀！
                 </p>
             </div>
 
@@ -166,7 +191,7 @@
                         </div>
                         <div>
                             <div class="text-gray-500 text-[11px] font-bold">聚會時間 Time</div>
-                            <div class="font-bold font-serif text-church-navy text-sm sm:text-base">上午 10:00 (09:30 開放接待)</div>
+                            <div class="font-bold font-serif text-church-navy text-sm sm:text-base">上午 09:30 (開放接待)</div>
                         </div>
                     </div>
 
@@ -255,7 +280,7 @@
                     correctLevel : QRCode.CorrectLevel.H
                 });
             } catch(e) {
-                // Fallback to QR server image if lib fails
+                // Fallback to QR server image if library fails
                 qrContainer.innerHTML = `<img src="https://api.qrserver.com/v1/create-qr-code/?size=112x112&data=${encodeURIComponent(rsvpUrl)}" alt="QR Code" class="w-28 h-28 object-contain">`;
             }
         };
@@ -282,8 +307,18 @@
         }
 
         function handleImgFallback(img, filename) {
+            if (!img.dataset.retry) {
+                img.dataset.retry = '1';
+                img.src = './' + filename;
+                return;
+            }
+            if (img.dataset.retry === '1') {
+                img.dataset.retry = '2';
+                img.src = './' + encodeURIComponent(filename);
+                return;
+            }
             img.onerror = null;
-            img.src = './' + filename;
+            img.src = 'https://placehold.co/800x1100/0f2c59/ffffff?text=' + encodeURIComponent(img.alt || '修繕感恩特別聚會');
         }
     </script>
 </body>
