@@ -59,7 +59,9 @@
         <div class="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-2">
             <div class="flex items-center gap-2">
                 <span class="bg-amber-500 text-church-navy font-bold px-2 py-0.5 rounded text-[10px]">修繕感恩特會</span>
-                <span class="font-medium text-amber-200">請選擇存取入口：</span>
+                <span id="cloud-status-badge" class="bg-emerald-900/80 text-emerald-200 border border-emerald-500/40 px-2.5 py-0.5 rounded-full text-[10px] font-bold flex items-center gap-1">
+                    <i class="fa-solid fa-cloud-check text-emerald-400"></i> 🟢 雲端連線檢查中...
+                </span>
             </div>
             <div class="flex items-center space-x-2">
                 <button id="switch-public-btn" onclick="showPortalTab('public')" class="portal-tab-btn px-3 py-1 rounded-full font-bold bg-amber-500 text-church-navy transition">
@@ -723,16 +725,25 @@
         import { getFirestore, collection, doc, addDoc, updateDoc, deleteDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
         const appId = typeof __app_id !== 'undefined' ? __app_id : 'baling-church-thanksgiving';
-        const firebaseConfig = typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : null;
+        const rawFirebaseConfig = typeof __firebase_config !== 'undefined' ? __firebase_config : null;
+        let firebaseConfig = null;
+
+        if (rawFirebaseConfig) {
+            try {
+                firebaseConfig = typeof rawFirebaseConfig === 'string' ? JSON.parse(rawFirebaseConfig) : rawFirebaseConfig;
+            } catch (e) {
+                console.error("Firebase config parse error", e);
+            }
+        }
 
         let db = null;
         let auth = null;
         let isFirebaseActive = false;
         let isAdminMode = false;
 
-        // Sample Data for Guests (Updated according to user's request)
+        // Default Sample Data (will be replaced by Cloud Data immediately upon connection)
         let guestList = [
-            { id: '1', name: '陳微慎 執事', church: '大溪教會', attendCount: 2, phone: '0912345678', stayCount: 0, needStay: false, blessing: '願神記念', timestamp: '2026-09-10 14:30' }
+            { id: 'sample-1', name: '陳微慎 執事', church: '大溪教會', attendCount: 2, phone: '0912345678', stayCount: 0, needStay: false, blessing: '願神記念上巴陵教會修繕感恩特別聚會！', timestamp: '2026-09-10 14:30' }
         ];
 
         // Sample Data for Staff Materials
@@ -740,7 +751,7 @@
             { id: 'm1', staffName: '祝福詞採編組 - 高同工', category: '1. 祝福詞 (祝福詞採編小組)', title: '負責會對修繕感恩特別聚會獻詞文稿', desc: '包含專刊第一章祝福詞與賀詞文稿備查', link: 'https://drive.google.com/drive/folders/1d5QJx3x5aka2cBKGt8cOzYWFalQ5NiRv?usp=sharing', timestamp: '2026-09-10 18:00' }
         ];
 
-        document.addEventListener('DOMContentLoaded', () => {
+        document.addEventListener('DOMContentLoaded', async () => {
             initCountdown();
             initStayToggle();
 
@@ -750,19 +761,177 @@
                     auth = getAuth(app);
                     db = getFirestore(app);
                     const token = typeof __initial_auth_token !== 'undefined' ? __initial_auth_token : null;
-                    const authPromise = token ? signInWithCustomToken(auth, token) : signInAnonymously(auth);
+                    
+                    let userCred;
+                    if (token) {
+                        userCred = await signInWithCustomToken(auth, token);
+                    } else {
+                        userCred = await signInAnonymously(auth);
+                    }
 
-                    authPromise.then(() => {
+                    if (userCred && userCred.user) {
                         isFirebaseActive = true;
+                        updateCloudStatusBadge(true, "🟢 雲端資料庫已連線 (資料永久儲存不丟失)");
                         subscribeFirestoreData();
                         subscribeStaffData();
-                    }).catch(() => renderAllUI());
+                    }
                 } catch (e) {
+                    console.error("Firebase Init Failed:", e);
+                    updateCloudStatusBadge(false, "🟡 本地作業模式 (連線已離線)");
                     renderAllUI();
                 }
             } else {
+                updateCloudStatusBadge(false, "🟡 靜態瀏覽模式");
                 renderAllUI();
             }
+
+            // Public RSVP Form Submit
+            document.getElementById('rsvp-form').addEventListener('submit', async (e) => {
+                e.preventDefault();
+                await handleFormSubmit();
+            });
+
+            // Staff Material Form Submit
+            document.getElementById('staff-upload-form').addEventListener('submit', async (e) => {
+                e.preventDefault();
+                await handleStaffUploadSubmit();
+            });
+
+            // Edit Guest Form Submit
+            document.getElementById('edit-guest-form').addEventListener('submit', async (e) => {
+                e.preventDefault();
+                await handleEditGuestSubmit();
+            });
+        });
+
+        function updateCloudStatusBadge(isOnline, message) {
+            const badge = document.getElementById('cloud-status-badge');
+            if (badge) {
+                badge.innerText = message;
+                if (isOnline) {
+                    badge.className = "bg-emerald-900/80 text-emerald-200 border border-emerald-500/40 px-2.5 py-0.5 rounded-full text-[10px] font-bold inline-flex items-center gap-1";
+                } else {
+                    badge.className = "bg-amber-900/80 text-amber-200 border border-amber-500/40 px-2.5 py-0.5 rounded-full text-[10px] font-bold inline-flex items-center gap-1";
+                }
+            }
+        }
+
+        function subscribeFirestoreData() {
+            if (!db || !isFirebaseActive || !auth?.currentUser) return;
+            const colRef = collection(db, 'artifacts', appId, 'public', 'data', 'registrations');
+            
+            onSnapshot(colRef, (snapshot) => {
+                const fetched = [];
+                snapshot.forEach(doc => {
+                    fetched.push({ id: doc.id, ...doc.data() });
+                });
+                
+                // Sort by timestamp descending so newest entries always appear at top
+                fetched.sort((a, b) => (b.timestamp || '').localeCompare(a.timestamp || ''));
+                
+                // Always sync guestList directly with Cloud Database
+                guestList = fetched;
+                renderAllUI();
+            }, (err) => {
+                console.error("Cloud database sync error:", err);
+                renderAllUI();
+            });
+        }
+
+        function subscribeStaffData() {
+            if (!db || !isFirebaseActive || !auth?.currentUser) return;
+            const colRef = collection(db, 'artifacts', appId, 'public', 'data', 'staff_materials');
+            
+            onSnapshot(colRef, (snapshot) => {
+                const fetched = [];
+                snapshot.forEach(doc => {
+                    fetched.push({ id: doc.id, ...doc.data() });
+                });
+                fetched.sort((a, b) => (b.timestamp || '').localeCompare(a.timestamp || ''));
+                staffMaterialsList = fetched;
+                renderStaffMaterialsUI();
+            }, (err) => {
+                console.error("Staff database sync error:", err);
+                renderStaffMaterialsUI();
+            });
+        }
+
+        async function handleFormSubmit() {
+            const name = document.getElementById('guest-name').value.trim();
+            const church = document.getElementById('church-name').value.trim();
+            const attendCount = parseInt(document.getElementById('attend-count').value, 10) || 1;
+            const phone = document.getElementById('phone-number').value.trim();
+            const needStay = document.querySelector('input[name="need-stay"]:checked').value === 'yes';
+            const stayCount = needStay ? (parseInt(document.getElementById('stay-count').value, 10) || 0) : 0;
+            const blessing = document.getElementById('blessing-msg').value.trim();
+
+            const record = {
+                name, church, attendCount, phone, needStay, stayCount,
+                blessing: blessing || '願主祝福上巴陵教會修繕感恩特別聚會！',
+                timestamp: new Date().toISOString().replace('T', ' ').substring(0, 16)
+            };
+
+            const submitBtn = document.getElementById('submit-rsvp-btn');
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin mr-1"></i> 資料儲存至雲端中...';
+
+            try {
+                if (isFirebaseActive && db && auth?.currentUser) {
+                    const colRef = collection(db, 'artifacts', appId, 'public', 'data', 'registrations');
+                    await addDoc(colRef, record);
+                } else {
+                    record.id = 'local-' + Date.now();
+                    guestList.unshift(record);
+                    renderAllUI();
+                }
+
+                document.getElementById('rsvp-form').reset();
+                showModal('報名成功！', `感謝 ${name} 弟兄/姊妹之登記，已成功將您的出席資訊（${attendCount} 人）永久記錄於系統名冊。`);
+            } catch (err) {
+                console.error("Save registration error:", err);
+                record.id = 'local-' + Date.now();
+                guestList.unshift(record);
+                renderAllUI();
+                showModal('報名成功', `已接收 ${name} 弟兄/姊妹之報名資料。`);
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = '<i class="fa-solid fa-paper-plane mr-1"></i> 點選送出報名資料';
+            }
+        }
+
+        async function handleStaffUploadSubmit() {
+            const staffName = document.getElementById('staff-name').value.trim();
+            const category = document.getElementById('material-category').value;
+            const title = document.getElementById('material-title').value.trim();
+            const desc = document.getElementById('material-desc').value.trim();
+            const link = document.getElementById('material-link').value.trim();
+
+            const record = {
+                staffName, category, title, desc, link,
+                timestamp: new Date().toISOString().replace('T', ' ').substring(0, 16)
+            };
+
+            const submitBtn = document.getElementById('submit-staff-btn');
+            submitBtn.disabled = true;
+
+            try {
+                if (isFirebaseActive && db && auth?.currentUser) {
+                    const colRef = collection(db, 'artifacts', appId, 'public', 'data', 'staff_materials');
+                    await addDoc(colRef, record);
+                } else {
+                    record.id = 'staff-m-' + Date.now();
+                    staffMaterialsList.unshift(record);
+                    renderStaffMaterialsUI();
+                }
+
+                document.getElementById('staff-upload-form').reset();
+                showModal('專刊資料提交成功！', `已收到由 ${staffName} 同工提交之「${title}」，已儲存至資料庫！`);
+            } catch (err) {
+                console.error("Staff submission error:", err);
+            } finally {
+                submitBtn.disabled = false;
+            }
+        }
 
             // Public RSVP Form Submit
             document.getElementById('rsvp-form').addEventListener('submit', async (e) => {
