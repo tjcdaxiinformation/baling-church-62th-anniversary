@@ -439,26 +439,37 @@
                 </div>
 
                 <!-- Admin Toolbar (Visible when Admin Mode is unlocked) -->
-                <div id="admin-controls-bar" class="hidden mb-6 bg-slate-900 text-white p-4 rounded-2xl border border-slate-700 flex flex-wrap items-center justify-between gap-4 shadow-lg">
+                <div id="admin-controls-bar" class="hidden mb-6 bg-slate-900 text-white p-4 sm:p-5 rounded-2xl border border-slate-700 flex flex-wrap items-center justify-between gap-4 shadow-lg">
                     <div class="flex items-center gap-2">
-                        <span class="bg-emerald-500/20 border border-emerald-400/40 text-emerald-300 text-xs px-2.5 py-1 rounded-full font-bold">
-                            <i class="fa-solid fa-shield-halved mr-1"></i> 已開啟管理者模式
+                        <span class="bg-emerald-500/20 border border-emerald-400/40 text-emerald-300 text-xs px-2.5 py-1 rounded-full font-bold flex items-center gap-1">
+                            <i class="fa-solid fa-shield-halved text-emerald-400"></i> 已解鎖管理者權限
                         </span>
-                        <span class="text-xs text-slate-300">您可在此進行報名人數歸零、修改或刪除資料</span>
+                        <span class="text-xs text-slate-300 hidden sm:inline">可檢視電話、匯出 Excel、清空或修改資料</span>
                     </div>
-                    <div class="flex flex-wrap items-center gap-2">
-                        <button onclick="exportToCSV()" class="bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold px-3 py-2 rounded-xl transition flex items-center gap-1">
-                            <i class="fa-solid fa-file-excel"></i> 匯出報名名冊 (CSV)
+                    <div class="flex flex-wrap items-center gap-2.5">
+                        <a href="https://docs.google.com/spreadsheets/" target="_blank" rel="noopener noreferrer" class="bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold px-3.5 py-2 rounded-xl transition flex items-center gap-1.5 shadow">
+                            <i class="fa-solid fa-table"></i> 開啟 Google 雲端試算表後台
+                        </a>
+                        <button onclick="exportToCSV()" class="bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold px-3.5 py-2 rounded-xl transition flex items-center gap-1.5 shadow">
+                            <i class="fa-solid fa-file-excel"></i> 一鍵匯出 Excel 報名總表 (.csv)
                         </button>
                         <button onclick="confirmClearAllData()" class="bg-red-600 hover:bg-red-700 text-white text-xs font-bold px-3 py-2 rounded-xl transition flex items-center gap-1">
-                            <i class="fa-solid fa-trash-can"></i> 一鍵歸零 / 清空所有資料
+                            <i class="fa-solid fa-trash-can"></i> 一鍵歸零清空
                         </button>
                     </div>
                 </div>
 
-                <div class="mb-6 flex flex-col sm:flex-row justify-between items-center gap-4 bg-gray-50 p-4 rounded-2xl border">
-                    <input type="text" id="search-input" onkeyup="filterGuestTable()" placeholder="搜尋姓名或教會..." class="w-full sm:w-80 px-4 py-2 rounded-xl border text-sm outline-none focus:ring-2 focus:ring-amber-500">
-                    <div class="text-xs text-gray-600">
+                <!-- Search & Categorization Filter Bar -->
+                <div class="mb-6 flex flex-col sm:flex-row justify-between items-center gap-4 bg-gray-50 p-4 rounded-2xl border border-gray-200">
+                    <div class="flex flex-wrap items-center gap-3 w-full sm:w-auto">
+                        <input type="text" id="search-input" onkeyup="filterGuestTable()" placeholder="搜尋姓名或教會..." class="w-full sm:w-64 px-4 py-2 rounded-xl border border-gray-300 text-sm outline-none focus:ring-2 focus:ring-amber-500">
+                        <select id="filter-stay-select" onchange="filterGuestTable()" class="px-3 py-2 rounded-xl border border-gray-300 text-sm font-medium outline-none focus:ring-2 focus:ring-amber-500 bg-white">
+                            <option value="all">🔍 全部住宿狀態</option>
+                            <option value="need">🏠 僅看需要住宿</option>
+                            <option value="none">🚪 僅看不需要住宿</option>
+                        </select>
+                    </div>
+                    <div class="text-xs text-gray-600 text-right w-full sm:w-auto">
                         總報名人數：<span id="list-total-headcount" class="font-bold text-amber-700 text-base">0</span> 人｜需要住宿總人數：<span id="list-total-stay" class="font-bold text-blue-700 text-base">0</span> 人
                     </div>
                 </div>
@@ -471,6 +482,7 @@
                                 <th class="p-4">所屬教會</th>
                                 <th class="p-4 text-center">參加人數</th>
                                 <th class="p-4 text-center">住宿人數</th>
+                                <th class="p-4 admin-phone-col hidden">聯絡電話</th>
                                 <th class="p-4">感恩祝福留言</th>
                                 <th class="p-4 text-right">報名時間</th>
                                 <th class="p-4 text-center admin-col hidden">管理者操作</th>
@@ -720,7 +732,7 @@
 
         // Sample Data for Guests (Updated according to user's request)
         let guestList = [
-            { id: '1', name: '陳微慎 執事', church: '大溪教會', attendCount: 2, stayCount: 0, needStay: false, blessing: '願神記念', timestamp: '2026-09-10 14:30' }
+            { id: '1', name: '陳微慎 執事', church: '大溪教會', attendCount: 2, phone: '0912345678', stayCount: 0, needStay: false, blessing: '願神記念', timestamp: '2026-09-10 14:30' }
         ];
 
         // Sample Data for Staff Materials
@@ -792,8 +804,9 @@
                 closeAdminAuthModal();
                 document.getElementById('admin-controls-bar').classList.remove('hidden');
                 document.querySelectorAll('.admin-col').forEach(el => el.classList.remove('hidden'));
+                document.querySelectorAll('.admin-phone-col').forEach(el => el.classList.remove('hidden'));
                 renderAllUI();
-                showModal('管理者解鎖成功', '已啟用管理者權限！您現在可以修改單筆資料、刪除或進行一鍵歸零。');
+                showModal('管理者解鎖成功', '已啟用管理者權限！您現在可以查看電話、匯出 Excel、修改單筆資料或進行歸零。');
             } else {
                 alert('密碼不正確，請重新輸入。');
             }
@@ -879,9 +892,10 @@
                 alert('目前無任何報名資料可供匯出。');
                 return;
             }
-            let csvContent = "\uFEFF代表姓名,所屬教會,參加人數,住宿人數,祝福留言,報名時間\n";
+            let csvContent = "\uFEFF代表姓名,所屬教會,參加人數,住宿人數,聯絡電話,感恩祝福留言,報名時間\n";
             guestList.forEach(g => {
-                csvContent += `"${g.name}","${g.church}",${g.attendCount},${g.stayCount},"${g.blessing.replace(/"/g, '""')}","${g.timestamp}"\n`;
+                const phoneStr = g.phone ? `'${g.phone}` : '';
+                csvContent += `"${g.name || ''}","${g.church || ''}",${g.attendCount || 0},${g.stayCount || 0},"${phoneStr}","${(g.blessing || '').replace(/"/g, '""')}","${g.timestamp || ''}"\n`;
             });
             const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
             const link = document.createElement("a");
@@ -894,10 +908,18 @@
 
         window.filterGuestTable = function() {
             const q = document.getElementById('search-input').value.toLowerCase();
+            const stayFilter = document.getElementById('filter-stay-select').value;
             const rows = document.querySelectorAll('#guest-table-body tr');
+
             rows.forEach(row => {
-                const text = row.innerText.toLowerCase();
-                row.style.display = text.includes(q) ? '' : 'none';
+                const textMatches = row.innerText.toLowerCase().includes(q);
+                const isStayRow = row.dataset.needstay === 'true';
+                
+                let stayMatches = true;
+                if (stayFilter === 'need') stayMatches = isStayRow;
+                if (stayFilter === 'none') stayMatches = !isStayRow;
+
+                row.style.display = (textMatches && stayMatches) ? '' : 'none';
             });
         };
 
@@ -1048,9 +1070,14 @@
 
                 const tr = document.createElement('tr');
                 tr.className = 'hover:bg-amber-50/40 border-b border-gray-100';
-                
+                tr.dataset.needstay = item.needStay ? 'true' : 'false';
+
+                let phoneCellHtml = isAdminMode ? `
+                    <td class="p-4 font-mono text-xs text-blue-800 font-bold admin-phone-col">${escapeHtml(item.phone || '未提供')}</td>
+                ` : `<td class="p-4 font-mono text-xs text-blue-800 font-bold admin-phone-col hidden">${escapeHtml(item.phone || '未提供')}</td>`;
+
                 let adminCellHtml = isAdminMode ? `
-                    <td class="p-4 text-center space-x-2">
+                    <td class="p-4 text-center space-x-2 admin-col">
                         <button onclick="openEditGuestModal('${item.id}')" class="bg-amber-100 hover:bg-amber-200 text-amber-800 text-xs px-2.5 py-1 rounded font-bold transition">
                             <i class="fa-solid fa-pen"></i> 修改
                         </button>
@@ -1058,13 +1085,14 @@
                             <i class="fa-solid fa-trash"></i> 刪除
                         </button>
                     </td>
-                ` : '';
+                ` : `<td class="p-4 text-center space-x-2 admin-col hidden"></td>`;
 
                 tr.innerHTML = `
                     <td class="p-4 font-bold text-church-navy">${escapeHtml(item.name)}</td>
                     <td class="p-4 text-gray-700">${escapeHtml(item.church)}</td>
                     <td class="p-4 text-center font-bold text-amber-700">${item.attendCount} 人</td>
                     <td class="p-4 text-center">${item.needStay ? `<span class="bg-blue-100 text-blue-800 text-xs px-2 py-0.5 rounded font-bold">${item.stayCount} 位住宿</span>` : '<span class="text-xs text-gray-400">無</span>'}</td>
+                    ${phoneCellHtml}
                     <td class="p-4 text-xs italic text-gray-600 font-serif">"${escapeHtml(item.blessing)}"</td>
                     <td class="p-4 text-right text-xs text-gray-400">${item.timestamp || ''}</td>
                     ${adminCellHtml}
